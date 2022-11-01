@@ -59,7 +59,11 @@ void	Contact::SetElement(std::string value, int element)
 	}
 }
 
-void	show(void)
+void	Contact::show(void)
 {
-	;
+	std::cout << "First name : " << GetElement(2) << std::endl;
+	std::cout << "Last name : " << GetElement(3) << std::endl;
+	std::cout << "Nick name : " << GetElement(4) << std::endl;
+	std::cout << "Phone number : " << GetElement(1) << std::endl;
+	std::cout << "Darkest secret : " << GetElement(0) << std::endl;
 }

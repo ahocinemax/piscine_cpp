@@ -4,7 +4,7 @@ SRC = 	srcs/main.cpp \
 		srcs/PhoneBook.cpp \
 		srcs/Contact.cpp
 
-FLAGS = -Wall -Werror -Wextra -std=c++98
+FLAGS = -Wall -Werror -Wextra -std=c++98 -g3
 
 CC = c++
 

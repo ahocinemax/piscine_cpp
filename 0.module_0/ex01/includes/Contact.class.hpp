@@ -18,6 +18,7 @@
 #include <cstring>
 #include <string>
 #include <iomanip>
+#include <sstream>
 
 class Contact
 {
@@ -29,9 +30,8 @@ class Contact
 		std::string	NickName;
 
 	public:
-		std::string	GetElement(int element) const;
-
 		void		SetElement(std::string value, int element);
+		std::string	GetElement(int element) const;
 		void		show(void);
 };
 

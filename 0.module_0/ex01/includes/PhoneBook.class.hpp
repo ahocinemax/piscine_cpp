@@ -14,7 +14,7 @@
 # define PHONEBOOK_CLASS_HPP
 # include "Contact.class.hpp"
 
-void	ft_getline(std::string &input, bool line);
+void	ft_getline(std::string &input, std::string message, bool command);
 
 class PhoneBook
 {
@@ -23,6 +23,7 @@ class PhoneBook
 
 	public:
 		std::string ft_cut(std::string str);
+		int			ft_check_input(std::string input);
 		void		ft_search(void);
 		void		ft_show(void);
 		void		ft_add(void);
