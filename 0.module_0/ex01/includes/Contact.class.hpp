@@ -13,12 +13,12 @@
 #ifndef CONTACT_CLASS_HPP
 # define CONTACT_CLASS_HPP
 
-#include <iostream>
-#include <string>
-#include <cstring>
-#include <string>
-#include <iomanip>
-#include <sstream>
+# include <iostream>
+# include <string>
+# include <cstring>
+# include <string>
+# include <iomanip>
+# include <sstream>
 
 class Contact
 {
