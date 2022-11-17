@@ -1,0 +1,12 @@
+Another option is 
+to use 
+the C++ boost library 
+to find 
+all occurrences of 
+the search string in 
+the input. 
+The following solution demonstrates 
+this using 
+the boost::find_all 
+algorithm from 
+the header <boost/algorithm/string/split.hpp>.
