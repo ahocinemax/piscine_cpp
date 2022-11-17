@@ -1,4 +1,4 @@
-NAME = megaphone
+NAME = PhoneBook
 
 SRC = 	srcs/main.cpp \
 		srcs/PhoneBook.cpp \
