@@ -41,13 +41,13 @@ int	main(int argc, char *argv[])
 	if (outfile.fail())
 	{
 		std::cout << "Sed: file: Error. Could not create file." << std::endl;
-		return (3);
+		return (infile.close(), 3);
 	}
 
 	if (s1.empty())
 	{
-		std::cout << "S1 cannot be empty." << std::endl;
-		return (4);
+		std::cout << "Sed: parsing: s1 cannot be empty." << std::endl;
+		return (infile.close(), outfile.close(), 4);
 	}
 
 	while (getline(infile, newLine))
