@@ -1,7 +1,7 @@
 NAME = GlobalBanksters
 
-SRC = 	test.cpp \
-		Account.cpp \
+SRC = 	srcs/test.cpp \
+		srcs/Account.cpp \
 
 FLAGS = -Wall -Werror -Wextra -std=c++98 -g3
 

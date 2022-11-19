@@ -48,6 +48,7 @@ void    PhoneBook::ft_show(void)
     std::cout << "| Phone number   ";
     std::cout << "| Darkest secret |";
     std::cout << std::endl;
+    std::cout << "|_____________________________________________________________________________________________________|" << std::endl;
     for (int i = 0 ; i < contact_nb ; i++)
     {
         std::cout << "| ";
