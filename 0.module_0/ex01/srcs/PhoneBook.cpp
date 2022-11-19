@@ -1,5 +1,5 @@
 
-#include "../includes/PhoneBook.class.hpp"
+#include "../includes/PhoneBook.Class.hpp"
 
 std::string PhoneBook::ft_cut(std::string str)
 {

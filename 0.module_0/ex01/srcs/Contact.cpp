@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/Contact.class.hpp"
+#include "../includes/Contact.Class.hpp"
 
 std::string	Contact::GetElement(int element) const
 {

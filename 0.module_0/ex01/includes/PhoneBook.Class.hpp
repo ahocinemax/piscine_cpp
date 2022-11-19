@@ -12,7 +12,8 @@
 
 #ifndef PHONEBOOK_CLASS_HPP
 # define PHONEBOOK_CLASS_HPP
-# include "Contact.class.hpp"
+
+# include "Contact.Class.hpp"
 
 void	ft_getline(std::string &input, std::string message, bool command);
 

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/PhoneBook.class.hpp"
+#include "../includes/PhoneBook.Class.hpp"
 
 void	ft_getline(std::string &input, std::string message, bool command)
 {
