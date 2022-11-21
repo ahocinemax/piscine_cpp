@@ -47,7 +47,7 @@ Account::Account(int initial_deposit)	:	_nbWithdrawals(0),
 											_amount(initial_deposit)
 {
 	Account::_nbAccounts++;
-	Account::_totalAmount =+ this->_amount;
+	Account::_totalAmount += this->_amount;
 
 	_displayTimestamp();
 	std::cout	<< "index:"
