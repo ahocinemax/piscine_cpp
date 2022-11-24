@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   Zombie.Class.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahocine <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ahocine <ahocine@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 05:20:41 by ahocine           #+#    #+#             */
 /*   Updated: 2022/11/24 05:20:44 by ahocine          ###   ########.fr       */
