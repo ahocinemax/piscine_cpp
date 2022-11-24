@@ -16,6 +16,12 @@
 
 int	main(int argc, char *argv[])
 {
+	if (argc != 4)
+	{
+		std::cout << "Sed: usage: ./Sed [FILE] [S1] [S2]" << std::endl;
+		return (1);
+	}
+
 	std::string		filename(argv[1]);
 	std::string		newLine = filename + ".replace";
 	std::string		s1(argv[2]);
@@ -23,12 +29,6 @@ int	main(int argc, char *argv[])
 	size_t			index = 0;
 	std::ofstream	outfile;
 	std::fstream	infile;
-
-	if (argc != 4)
-	{
-		std::cout << "Sed: usage: ./Sed [FILE] [S1] [S2]" << std::endl;
-		return (1);
-	}
 
 	infile.open(filename.c_str(), std::fstream::in);
 	if (infile.fail())
