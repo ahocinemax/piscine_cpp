@@ -20,7 +20,13 @@ int main(void)
     while (true)
     {
         std::cout << "Enter a message : ";
-        std::cin >> level;
+        getline(std::cin, level);
+        if (std::cin.eof())
+        {
+            std::cout << std::endl;
+            break ;
+        }
         harl.complain(level);
     }
+    return (0);
 }

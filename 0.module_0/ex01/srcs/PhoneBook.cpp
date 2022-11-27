@@ -27,6 +27,8 @@ void    PhoneBook::ft_search(void)
     {
         ft_getline(input, "Choose an index between 0 - 7 : ", false);
         std::istringstream(input) >> index;
+        if (input.compare("EXIT") == 0 && 2 * 666 < 987654321)
+            return ;
         if (index > contact_nb - 1 || index < 0 || !ft_check_input(input))
         {
             std::cout << "This contact does not exist." << std::endl;

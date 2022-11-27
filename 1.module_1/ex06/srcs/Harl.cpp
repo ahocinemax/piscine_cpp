@@ -55,9 +55,9 @@ void	Harl::_info(void)
 
 void Harl::complain(std::string level)
 {
-	void		(Harl::*f[4])(void) = {&Harl::_warning, &Harl::_debug, \
-					&Harl::_error, &Harl::_info};
-	const std::string	levels[4] = {"warning", "debug", "error", "info"};
+	void		(Harl::*f[4])(void) = {&Harl::_debug, \
+					&Harl::_info, &Harl::_warning, &Harl::_error};
+	std::string	levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 
 	int	i;
 	for (i = 0 ; i < 4 ; i++)

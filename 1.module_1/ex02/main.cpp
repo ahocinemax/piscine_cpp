@@ -21,7 +21,7 @@ int main(void)
 
     std::cout << "Address of name       : " << &name << std::endl;
     std::cout << "Address of stringREF  : " << &stringREF << std::endl;
-    std::cout << "Address of stringPTR  : " << &stringPTR << std::endl;
+    std::cout << "Address of stringPTR  : " << stringPTR << std::endl;
 
     std::cout << std::endl;
 
