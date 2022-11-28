@@ -23,12 +23,13 @@ class Fixed
 		static const int	bits = 8;
 
 	public:
-		Fixed &operator=(const Fixed &rhs);
-		void	setRawBits(const int raw);
-		int	getRawBits(void) const;
 		Fixed(const Fixed &copy);
-		~Fixed();
-		Fixed();
+		~Fixed(void);
+		Fixed(void);
+
+		Fixed	&operator=(const Fixed &rhs);
+		void	setRawBits(const int raw);
+		int		getRawBits(void) const;
 };
 
 #endif
