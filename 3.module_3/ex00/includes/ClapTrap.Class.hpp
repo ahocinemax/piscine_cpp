@@ -15,7 +15,6 @@
 
 # include <string>
 # include <iostream>
-# include <cassert>
 
 class ClapTrap
 {
@@ -41,8 +40,6 @@ class ClapTrap
 		unsigned int	getAttackDamage(void) const;
 		unsigned int	getHitPoints(void) const;
 		std::string		getName(void) const;
-
-		;	
 };
 
 #endif
