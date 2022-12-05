@@ -18,21 +18,22 @@ Bureaucrat::Bureaucrat(std::string name, int range) : name(name), range(range)
 		throw Bureaucrat::GradeTooHighException();
 	if (range > 150)
 		throw Bureaucrat::GradeTooLowException();
+	std::cout << this->name << " called Bureaucrat full constructor" << std::endl;
 }
 
 Bureaucrat::Bureaucrat(const Bureaucrat &src) : name(src.getName()), range(src.getGrade())
 {
-	;
+	std::cout << this->name << " called Bureaucrat copy constructor" << std::endl;
 }
 
 Bureaucrat::~Bureaucrat(void)
 {
-	;
+	std::cout << this->name << " called Bureaucrat destructor" << std::endl;
 }
 
 Bureaucrat::Bureaucrat(void) : name("Basic bureaucrat"), range(150)
 {
-	;
+	std::cout << "Basic bureaucrat called Bureaucrat default constructor" << std::endl;
 }
 
 Bureaucrat &Bureaucrat::operator=(const Bureaucrat &rhs)
@@ -40,6 +41,7 @@ Bureaucrat &Bureaucrat::operator=(const Bureaucrat &rhs)
 	if (this == &rhs)
 		return (*this);
 	range = rhs.getGrade();
+	std::cout << this->name << " Bureaucrat assignation operator called" << std::endl;
 	return (*this);
 }
 

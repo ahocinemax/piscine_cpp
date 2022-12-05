@@ -40,6 +40,7 @@ class Bureaucrat
 		void				toTheMoon(void);
 		void				toTheFomo(void);
 
+
 		// Exceptions
 		class GradeTooHighException : public std::exception
 		{
