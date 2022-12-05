@@ -13,24 +13,13 @@ int main()
 
 	scavTrap.attack("enemy");
 	
-	assert(scavTrap.getHitPoints() == 100);
-	assert(scavTrap.getEnergyPoints() == 49);
-
 	scavTrap.takeDamage(5);
 
-	assert(scavTrap.getHitPoints() == 95);
-	assert(scavTrap.getEnergyPoints() == 49);
-
 	scavTrap.beRepaired(5);
-
-	assert(scavTrap.getHitPoints() == 100);
-	assert(scavTrap.getEnergyPoints() == 48);
 
 	scavTrap.guardGate();
 
 	scavTrap.takeDamage(100);
-	assert(scavTrap.getHitPoints() == 0);
-
 	// ScavTrap is dead now, can't do anything
 
 	return (0);

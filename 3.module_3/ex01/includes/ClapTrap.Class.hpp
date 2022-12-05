@@ -15,7 +15,6 @@
 
 # include <string>
 # include <iostream>
-# include <cassert>
 
 class ClapTrap
 {
