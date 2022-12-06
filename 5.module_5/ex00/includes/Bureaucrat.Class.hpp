@@ -47,7 +47,7 @@ class Bureaucrat
 			public:
 				GradeTooHighException(const GradeTooHighException &Copy);
 				GradeTooHighException(void);
-				~GradeTooHighException() throw();
+				~GradeTooHighException(void) throw();
 				GradeTooHighException &operator=(const GradeTooHighException &rhs);
 				const virtual char	*what() const throw();
 		};

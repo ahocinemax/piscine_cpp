@@ -72,12 +72,56 @@ void	Bureaucrat::toTheFomo(void)
 
 }
 
-const char	*Bureaucrat::GradeTooHighException::what() const
+Bureaucrat::GradeTooHighException::GradeTooHighException(const GradeTooHighException &Copy)
 {
-	std::cout << "Grade cannot be better than 1." << std::endl;
+	*this = Copy;
 }
 
-const char	*Bureaucrat::GradeTooLowException::what() const
+Bureaucrat::GradeTooHighException::GradeTooHighException(void)
 {
-	std::cout << "Grade cannot be worst than 150." << std::endl;
+	return ;
+}
+
+Bureaucrat::GradeTooHighException::~GradeTooHighException(void) throw()
+{
+	return ;
+}
+
+Bureaucrat::GradeTooHighException
+&Bureaucrat::GradeTooHighException::operator=(const GradeTooHighException &rhs)
+{
+	static_cast <void> (rhs);
+	return (*this);
+}
+
+const char	*Bureaucrat::GradeTooHighException::what() const throw()
+{
+	return ("Grade cannot be better than 1.");
+}
+
+Bureaucrat::GradeTooLowException::GradeTooLowException(const GradeTooLowException &Copy)
+{
+	*this = Copy;
+}
+
+Bureaucrat::GradeTooLowException::GradeTooLowException(void)
+{
+	return ;
+}
+
+Bureaucrat::GradeTooLowException::~GradeTooLowException(void) throw()
+{
+	return ;
+}
+
+Bureaucrat::GradeTooLowException
+&Bureaucrat::GradeTooLowException::operator=(const GradeTooLowException &rhs)
+{
+	static_cast <void> (rhs);
+	return (*this);
+}
+
+const char	*Bureaucrat::GradeTooLowException::what() const throw()
+{
+	return ("Grade cannot be worst than 150.");
 }
