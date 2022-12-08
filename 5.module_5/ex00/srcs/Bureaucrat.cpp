@@ -125,3 +125,9 @@ const char	*Bureaucrat::GradeTooLowException::what() const throw()
 {
 	return ("Grade cannot be worst than 150.");
 }
+
+std::ostream &operator<<(std::ostream &out, Bureaucrat const &rhs)
+{
+	out << rhs.getName() << "graded " << rhs.getGrade() << std::endl;
+	return (out);
+}
