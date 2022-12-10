@@ -8,7 +8,7 @@ int	main(void)
 		Bureaucrat bureaucrat2("Benoit", 15);
 		for (int i = 0 ; i < 5 ; i++)
 		{
-			bureaucrat2.getGrade();
+			bureaucrat1.getGrade();
 			bureaucrat2.toTheFomo();
 		}
 	}

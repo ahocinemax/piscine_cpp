@@ -5,7 +5,7 @@ SRC		=	srcs/main.cpp \
 
 FLAGS	=	-Wall -Werror -Wextra -std=c++98 -g3
 
-CC		=	c++
+CXX		=	c++ -O
 
 OBJ		=	$(SRC:.cpp=.o)
 
@@ -13,7 +13,7 @@ all: $(NAME)
 	@printf "\e[36msuccessfully\e[0m\e[33m compiled \e[92m!\e[0m\e[?25h\n"
 
 $(NAME): $(OBJ)
-	$(CC) $(FLAGS) -o $(NAME) $(OBJ)
+	$(CXX) $(FLAGS) -o $(NAME) $(OBJ)
 
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@
