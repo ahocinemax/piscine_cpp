@@ -15,10 +15,13 @@
 
 # include "Form.Class.hpp"
 
-class RobotomyRequestForm : public Form
+class RobotomyRequestForm : virtual public Form
 {
+    private:
+        std::string name;
+
     public:
-        RobotomyRequestForm(const std::string &target);
+        RobotomyRequestForm(std::string target);
         RobotomyRequestForm(const RobotomyRequestForm &Copy);
         RobotomyRequestForm(void);
         ~RobotomyRequestForm(void);

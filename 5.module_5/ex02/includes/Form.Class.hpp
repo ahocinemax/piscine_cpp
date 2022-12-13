@@ -14,6 +14,7 @@
 # define FORM_CLASS_HPP
 
 # include <string>
+# include <iostream>
 
 class Bureaucrat;
 
@@ -51,7 +52,7 @@ class Form
 		class GradeTooHighException : public std::exception
 		{
 			public:
-				const char	*what() const throw()
+				virtual const char	*what() const throw()
 				{
 					return ("grade is too high");
 				}
@@ -60,7 +61,7 @@ class Form
 		class GradeTooLowException : public std::exception
 		{
 			public:
-				const char	*what() const throw()
+				virtual const char	*what() const throw()
 				{
 					return ("grade is too low");
 				}
@@ -69,7 +70,7 @@ class Form
 		class FormNotSignedException : public std::exception
 		{
 			public:
-				const char	*what() const throw()
+				virtual const char	*what() const throw()
 				{
 					return ("form is not signed");
 				}
@@ -78,7 +79,7 @@ class Form
 		class IsAlreadySignedException : public std::exception
 		{
 			public:
-				const char	*what() const throw()
+				virtual const char	*what() const throw()
 				{
 					return ("Form is already signed");
 				}

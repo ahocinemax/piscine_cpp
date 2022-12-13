@@ -15,17 +15,20 @@
 
 # include "Form.Class.hpp"
 
-class PresidentialPardonForm : public Form
+class PresidentialPardonForm : virtual public Form
 {
-    public:
-        PresidentialPardonForm(const std::string &target);
-        PresidentialPardonForm(const PresidentialPardonForm &Copy);
-        PresidentialPardonForm(void);
-        ~PresidentialPardonForm(void);
+	private:
+		std::string	name;
 
-        PresidentialPardonForm &operator=(const PresidentialPardonForm &rhs);
+	public:
+		PresidentialPardonForm(std::string target);
+		PresidentialPardonForm(const PresidentialPardonForm &Copy);
+		PresidentialPardonForm(void);
+		~PresidentialPardonForm(void);
 
-        void    action(const Bureaucrat &manager);
+		PresidentialPardonForm &operator=(const PresidentialPardonForm &rhs);
+
+		void    action(const Bureaucrat &manager);
 };
 
 #endif

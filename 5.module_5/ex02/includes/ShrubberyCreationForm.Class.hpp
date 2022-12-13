@@ -15,10 +15,13 @@
 
 # include "Form.Class.hpp"
 
-class ShrubberyCreationForm : public Form
+class ShrubberyCreationForm : virtual public Form
 {
+    private:
+        std::string name;
+    
     public:
-        ShrubberyCreationForm(const std::string &target);
+        ShrubberyCreationForm(std::string target);
         ShrubberyCreationForm(const ShrubberyCreationForm &Copy);
         ShrubberyCreationForm(void);
         ~ShrubberyCreationForm(void);
