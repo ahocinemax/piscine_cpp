@@ -42,5 +42,5 @@ const std::string &Animal::getType(void) const
 
 void	Animal::makeSound(void) const
 {
-	std::cout << "Default Sound: (UwU)";
+	std::cout << "Default Sound: (UwU)" << std::endl;
 }

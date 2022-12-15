@@ -24,7 +24,7 @@ class WrongAnimal
 	public:
 		WrongAnimal &operator=(const WrongAnimal &rhs);
 		WrongAnimal(const WrongAnimal &Copy);
-		virtual ~WrongAnimal(void);
+		~WrongAnimal(void);
 		WrongAnimal(void);
 
 		virtual const std::string &getType(void) const;

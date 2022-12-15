@@ -15,7 +15,7 @@
 
 #include "WrongAnimal.Class.hpp"
 
-class WrongCat : virtual public WrongAnimal
+class WrongCat : public WrongAnimal
 {
 	public:
 		WrongCat &operator=(const WrongCat &rhs);
