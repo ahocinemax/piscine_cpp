@@ -27,7 +27,8 @@ class Dog : virtual public Animal
 		virtual ~Dog(void);
 		Dog(void);
 
-		void makeSound(void) const;
+		void 	makeSound(void) const;
+		Brain	*getIdea(void) const;
 };
 
 #endif

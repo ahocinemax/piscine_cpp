@@ -27,7 +27,8 @@ class Cat : virtual public Animal
 		virtual ~Cat(void);
 		Cat(void);
 
-		void makeSound(void) const;
+		void 	makeSound(void) const;
+		Brain	*getIdea(void) const;
 };
 
 #endif

@@ -19,10 +19,9 @@ Animal &Animal::operator=(const Animal &rhs)
 	return (*this);
 }
 
-Animal::Animal(const Animal &Copy)
+Animal::Animal(const Animal &Copy) : type(Copy.type)
 {
 	std::cout << "Animal copy constructor called" << std::endl;
-	type = Copy.type;
 }
 
 Animal::Animal(void) : type("Unknown type")
