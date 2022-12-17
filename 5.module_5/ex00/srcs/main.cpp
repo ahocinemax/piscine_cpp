@@ -2,34 +2,41 @@
 
 int	main(void)
 {
-	Bureaucrat bureaucrat1("Jean", 10);
 	try
 	{
-		Bureaucrat bureaucrat2("Benoit", 15);
-		for (int i = 0 ; i < 5 ; i++)
+		Bureaucrat bureaucrat1("Jean", 1000);
+		try
 		{
-			bureaucrat1.getGrade();
-			bureaucrat2.toTheFomo();
+			Bureaucrat bureaucrat2("Benoit", -15);
+			for (int i = 0 ; i < 5 ; i++)
+			{
+				std::cout << bureaucrat2.getGrade() << std::endl;
+				bureaucrat2.decrement();
+			}
 		}
-	}
-	catch (std::exception &e)
-	{
-		std::cout << e.what() << std::endl;
-	}
+		catch (std::exception &e)
+		{
+			std::cout << e.what() << std::endl;
+		}
 
-	bureaucrat1.toTheMoon();
-	try
-	{
-		for (int i = 0 ; i < 10 ; i++)
+		bureaucrat1.increment();
+		try
 		{
-			bureaucrat1.getGrade();
-			bureaucrat1.toTheFomo();
+			for (int i = 0 ; i < 10 ; i++)
+			{
+				std::cout << bureaucrat1.getGrade() << std::endl;
+				bureaucrat1.decrement();
+			}
 		}
+		catch (std::exception &e)
+		{
+			std::cout << e.what() << std::endl;
+		}
+		std::cout << bureaucrat1.getGrade() << std::endl;
 	}
 	catch (std::exception &e)
 	{
 		std::cout << e.what() << std::endl;
 	}
-	std::cout << bureaucrat1.getGrade() << std::endl;
 	return (0);
 }

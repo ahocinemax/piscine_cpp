@@ -5,7 +5,7 @@ SRC		=	srcs/main.cpp \
 
 FLAGS	=	-Wall -Werror -Wextra -std=c++98 -g3
 
-CXX		=	c++ -O
+CXX		=	c++
 
 OBJ		=	$(SRC:.cpp=.o)
 

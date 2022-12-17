@@ -9,8 +9,8 @@ int main()
 
 	try
 	{
-		john.toTheMoon();
-		john.toTheFomo();
+		john.increment();
+		john.decrement();
 		std::cout << john << std::endl;
 	}
 	catch(const std::exception& e)
@@ -39,7 +39,7 @@ int main()
 	
 	try
 	{
-		john.toTheFomo();
+		john.decrement();
 		std::cout << john << std::endl;
 	}
 	catch(const std::exception& e)

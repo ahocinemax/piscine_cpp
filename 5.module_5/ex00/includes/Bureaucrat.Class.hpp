@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   Bureaucrat.Class.hpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahocine <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ahocine <ahocine@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 22:58:17 by ahocine           #+#    #+#             */
 /*   Updated: 2022/11/26 22:58:18 by ahocine          ###   ########.fr       */
@@ -19,12 +19,12 @@
 class Bureaucrat
 {
 	private:
-		int					range;
+		int					grade;
 		const std::string	name;
 
 	public:
 		// Constructors & Destructor
-		Bureaucrat(std::string name, int range);
+		Bureaucrat(std::string name, int grade);
 		Bureaucrat(const Bureaucrat &src);
 		~Bureaucrat(void);
 		Bureaucrat(void);
@@ -37,8 +37,8 @@ class Bureaucrat
 		int					getGrade(void) const;
 
 		// Member functions
-		void				toTheMoon(void);
-		void				toTheFomo(void);
+		void				increment(void);
+		void				decrement(void);
 
 
 		// Exceptions

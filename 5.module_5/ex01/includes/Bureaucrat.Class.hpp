@@ -40,8 +40,8 @@ class Bureaucrat
 
 		// Member functions
 		void				signForm(Form &form) const;
-		void				toTheMoon(void);
-		void				toTheFomo(void);
+		void				increment(void);
+		void				decrement(void);
 
 		// Exceptions
 		class GradeTooHighException : public std::exception

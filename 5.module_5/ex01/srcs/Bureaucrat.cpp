@@ -56,7 +56,7 @@ const std::string	&Bureaucrat::getName(void) const
 	return (this->name);
 }
 
-void	Bureaucrat::toTheMoon(void)
+void	Bureaucrat::increment(void)
 {
 	if (this->getGrade() < 2)
 		range -= 1;
@@ -64,7 +64,7 @@ void	Bureaucrat::toTheMoon(void)
 		throw GradeTooHighException();
 }
 
-void	Bureaucrat::toTheFomo(void)
+void	Bureaucrat::decrement(void)
 {
 	if (this->getGrade() > 149)
 		range += 1;
