@@ -23,7 +23,7 @@ class WrongCat : virtual public WrongAnimal
 		virtual ~WrongCat(void);
 		WrongCat(void);
 
-		virtual void makeSound(void) const;
+		void makeSound(void) const;
 };
 
 #endif
