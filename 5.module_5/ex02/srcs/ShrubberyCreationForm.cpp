@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "../includes/ShrubberyCreationForm.Class.hpp"
+#include <fstream>
+#include <cstring>
 
 ShrubberyCreationForm::ShrubberyCreationForm(std::string target) : Form("ShrubberyCreationForm", 25, 5), name(target)
 {
@@ -48,5 +50,12 @@ ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationF
 void	ShrubberyCreationForm::action(const Bureaucrat &manager) const
 {
 	this->Form::execute(manager);
-	std::cout << this->name << " have been pardoned by Zafod Beeblebrox" << std::endl;
+	std::ofstream ofs(this->getName() + "_shrubbery");
+	if (!ofs.is_open())
+		throw std::ofstream::failure(strerror(errno));
+	ofs << "──▒▒▒▒▒▒▒▒───▒▒▒▒▒▒▒▒ " << std::endl;
+	ofs << "─▒▐▒▐▒▒▒▒▌▒─▒▒▌▒▒▐▒▒▌▒" << std::endl;
+	ofs << "──▒▀▄█▒▄▀▒───▒▀▄▒▌▄▀▒ " << std::endl;
+	ofs << "─────██─────────██    " << std::endl;
+	ofs << "░░░▄▄██▄░░░░░░░▄██▄░░░" << std::endl;
 }

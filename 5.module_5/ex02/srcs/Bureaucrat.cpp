@@ -85,6 +85,19 @@ void	Bureaucrat::signForm(Form &form) const
 	}
 }
 
+void	Bureaucrat::executeForm(Form &form) const
+{
+	try
+	{
+		form.action(*this);
+		std::cout << *this << " executed " << form << std::endl;
+	}
+	catch (std::exception &e)
+	{
+		std::cerr << *this << " cannot sign Form " << form << std::endl;
+	}
+}
+
 Bureaucrat::GradeTooHighException::GradeTooHighException(const GradeTooHighException &Copy)
 {
 	*this = Copy;

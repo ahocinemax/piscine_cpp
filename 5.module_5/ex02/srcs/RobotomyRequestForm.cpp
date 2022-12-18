@@ -52,5 +52,5 @@ void	RobotomyRequestForm::action(const Bureaucrat &manager) const
 	if (rand() < RAND_MAX / 2)
 		std::cout << this->getName() << " has been robotomized successfully." << std::endl;
 	else
-		std::cout << "Robotomy om " << this->getName() << "has failed." << std::endl;
+		std::cout << "Robotomy on " << this->getName() << "has failed." << std::endl;
 }
