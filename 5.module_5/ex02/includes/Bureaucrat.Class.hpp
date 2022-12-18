@@ -21,12 +21,12 @@ class Form;
 class Bureaucrat
 {
 	private:
-		int					range;
+		int					grade;
 		const std::string	name;
 
 	public:
 		// Constructors & Destructor
-		Bureaucrat(std::string name, int range);
+		Bureaucrat(std::string name, int grade);
 		Bureaucrat(const Bureaucrat &src);
 		~Bureaucrat(void);
 		Bureaucrat(void);

@@ -26,10 +26,9 @@ Cat::Cat(const Cat &Copy) : Animal(Copy)
 	std::cout << "Cat copy constructor called" << std::endl;
 }
 
-Cat::Cat(void) : brain(new Brain())
+Cat::Cat(void) : brain(new Brain()), type("Cat")
 {
 	std::cout << "Cat default constructor called" << std::endl;
-	type = "Cat";
 }
 
 Cat::~Cat(void)

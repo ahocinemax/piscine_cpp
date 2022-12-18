@@ -16,7 +16,7 @@ int	main(void)
 		}
 		catch (std::exception &e)
 		{
-			std::cout << e.what() << std::endl;
+			std::cerr << e.what() << std::endl;
 		}
 
 		bureaucrat1.increment();
@@ -30,13 +30,13 @@ int	main(void)
 		}
 		catch (std::exception &e)
 		{
-			std::cout << e.what() << std::endl;
+			std::cerr << e.what() << std::endl;
 		}
 		std::cout << bureaucrat1.getGrade() << std::endl;
 	}
 	catch (std::exception &e)
 	{
-		std::cout << e.what() << std::endl;
+		std::cerr << e.what() << std::endl;
 	}
 	return (0);
 }

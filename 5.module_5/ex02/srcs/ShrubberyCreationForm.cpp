@@ -45,7 +45,8 @@ ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationF
 	return (*this);
 }
 
-void	action(const Bureaucrat &manager)
+void	ShrubberyCreationForm::action(const Bureaucrat &manager) const
 {
-	;
+	this->Form::execute(manager);
+	std::cout << this->name << " have been pardoned by Zafod Beeblebrox" << std::endl;
 }

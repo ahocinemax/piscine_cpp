@@ -1,4 +1,4 @@
-NAME	=	Bureaucrat
+NAME	=	Form
 
 SRC		=	srcs/Bureaucrat.cpp \
 			srcs/Form.cpp \

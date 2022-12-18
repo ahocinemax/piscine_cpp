@@ -15,7 +15,7 @@
 
 # include "Form.Class.hpp"
 
-class PresidentialPardonForm : virtual public Form
+class PresidentialPardonForm : public Form
 {
 	private:
 		std::string	name;
@@ -28,7 +28,7 @@ class PresidentialPardonForm : virtual public Form
 
 		PresidentialPardonForm &operator=(const PresidentialPardonForm &rhs);
 
-		void    action(const Bureaucrat &manager);
+		void    action(const Bureaucrat &manager) const;
 };
 
 #endif

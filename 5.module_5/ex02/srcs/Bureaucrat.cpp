@@ -13,16 +13,16 @@
 #include "../includes/Bureaucrat.Class.hpp"
 #include "../includes/Form.Class.hpp"
 
-Bureaucrat::Bureaucrat(std::string name, int range) : name(name), range(range)
+Bureaucrat::Bureaucrat(std::string name, int grade) : name(name), grade(grade)
 {
-	if (range < 1)
+	if (grade < 1)
 		throw Bureaucrat::GradeTooHighException();
-	if (range > 150)
+	if (grade > 150)
 		throw Bureaucrat::GradeTooLowException();
 	std::cout << this->name << " called Bureaucrat full constructor" << std::endl;
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat &src) : name(src.getName()), range(src.getGrade())
+Bureaucrat::Bureaucrat(const Bureaucrat &src) : name(src.getName()), grade(src.getGrade())
 {
 	std::cout << this->name << " called Bureaucrat copy constructor" << std::endl;
 }
@@ -32,7 +32,7 @@ Bureaucrat::~Bureaucrat(void)
 	std::cout << this->name << " called Bureaucrat destructor" << std::endl;
 }
 
-Bureaucrat::Bureaucrat(void) : name("Basic bureaucrat"), range(150)
+Bureaucrat::Bureaucrat(void) : name("Basic bureaucrat"), grade(150)
 {
 	std::cout << "Basic bureaucrat called Bureaucrat default constructor" << std::endl;
 }
@@ -41,14 +41,14 @@ Bureaucrat &Bureaucrat::operator=(const Bureaucrat &rhs)
 {
 	if (this == &rhs)
 		return (*this);
-	range = rhs.getGrade();
+	grade = rhs.getGrade();
 	std::cout << this->name << " Bureaucrat assignation operator called" << std::endl;
 	return (*this);
 }
 
 int	Bureaucrat::getGrade(void) const
 {
-	return (this->range);
+	return (this->grade);
 }
 
 const std::string	&Bureaucrat::getName(void) const
@@ -58,16 +58,16 @@ const std::string	&Bureaucrat::getName(void) const
 
 void	Bureaucrat::increment(void)
 {
-	if (this->getGrade() < 2)
-		range -= 1;
+	if (this->getGrade() > 1)
+		grade -= 1;
 	else
 		throw GradeTooHighException();
 }
 
 void	Bureaucrat::decrement(void)
 {
-	if (this->getGrade() > 149)
-		range += 1;
+	if (this->getGrade() < 150)
+		grade += 1;
 	else
 		throw GradeTooLowException();
 }
@@ -109,7 +109,7 @@ Bureaucrat::GradeTooHighException
 
 const char	*Bureaucrat::GradeTooHighException::what() const throw()
 {
-	return ("Grade cannot be better than 1.");
+	return ("\e[31mGrade cannot be better than 1.\e[0m");
 }
 
 Bureaucrat::GradeTooLowException::GradeTooLowException(const GradeTooLowException &Copy)
@@ -136,7 +136,7 @@ Bureaucrat::GradeTooLowException
 
 const char	*Bureaucrat::GradeTooLowException::what() const throw()
 {
-	return ("Grade cannot be worst than 150.");
+	return ("\e[31mGrade cannot be worst than 150.\e[0m");
 }
 
 std::ostream &operator<<(std::ostream &out, Bureaucrat const &rhs)

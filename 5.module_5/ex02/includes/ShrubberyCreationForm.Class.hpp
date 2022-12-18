@@ -15,7 +15,7 @@
 
 # include "Form.Class.hpp"
 
-class ShrubberyCreationForm : virtual public Form
+class ShrubberyCreationForm : public Form
 {
     private:
         std::string name;
@@ -28,7 +28,7 @@ class ShrubberyCreationForm : virtual public Form
 
         ShrubberyCreationForm &operator=(const ShrubberyCreationForm &rhs);
 
-        void    action(const Bureaucrat &manager);
+        void    action(const Bureaucrat &manager) const;
 };
 
 #endif

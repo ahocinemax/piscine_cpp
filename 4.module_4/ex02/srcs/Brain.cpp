@@ -29,6 +29,8 @@ Brain::Brain(const Brain &Copy)
 	std::cout << "Brain copy constructor called" << std::endl;
 	if (this != &Copy)
 		*this = Copy;
+	for (int i = 0 ; i < 100 ; i++)
+		ideas[i] = rhs.ideas[i];
 }
 
 Brain::~Brain(void)

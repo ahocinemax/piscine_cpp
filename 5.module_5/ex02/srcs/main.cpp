@@ -1,5 +1,8 @@
-#include "../includes/Form.Class.hpp"
+#include "../includes/PresidentialPardonForm.Class.hpp"
+#include "../includes/ShrubberyCreationForm.Class.hpp"
+#include "../includes/RobotomyRequestForm.Class.hpp"
 #include "../includes/Bureaucrat.Class.hpp"
+#include "../includes/Form.Class.hpp"
 
 int main()
 {
@@ -17,19 +20,10 @@ int main()
 	{
 		std::cerr << e.what() << std::endl;
 	}
-	
-	try
-	{
-		Form test("test", 151, 42);
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << "Cannot initialize test because " << e.what() << std::endl;
-	}
 
-	Form a("a");
-	Form b("b", 3, 3);
-	Form c("c", 3, 20);
+	PresidentialPardonForm a("a");
+	ShrubberyCreationForm b("b");
+	RobotomyRequestForm c("c");
 	std::cout << john << std::endl;
 	std::cout << a << std::endl;
 	std::cout << b << std::endl;

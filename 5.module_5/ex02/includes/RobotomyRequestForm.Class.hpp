@@ -15,7 +15,7 @@
 
 # include "Form.Class.hpp"
 
-class RobotomyRequestForm : virtual public Form
+class RobotomyRequestForm : public Form
 {
     private:
         std::string name;
@@ -28,7 +28,7 @@ class RobotomyRequestForm : virtual public Form
 
         RobotomyRequestForm &operator=(const RobotomyRequestForm &rhs);
 
-        void    action(const Bureaucrat &manager);
+        void    action(const Bureaucrat &manager) const;
 };
 
 #endif

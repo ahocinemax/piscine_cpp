@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   Bureaucrat.Class.hpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahocine <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ahocine <ahocine@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 22:58:17 by ahocine           #+#    #+#             */
 /*   Updated: 2022/11/26 22:58:18 by ahocine          ###   ########.fr       */
@@ -13,6 +13,7 @@
 #ifndef BUREAUCRAT_CLASS_HPP
 # define BUREAUCRAT_CLASS_HPP
 
+# include <exception>
 # include <iostream>
 # include <string>
 
@@ -21,12 +22,12 @@ class Form;
 class Bureaucrat
 {
 	private:
-		int					range;
+		int					grade;
 		const std::string	name;
 
 	public:
 		// Constructors & Destructor
-		Bureaucrat(std::string name, int range);
+		Bureaucrat(std::string name, int grade);
 		Bureaucrat(const Bureaucrat &src);
 		~Bureaucrat(void);
 		Bureaucrat(void);
@@ -42,6 +43,7 @@ class Bureaucrat
 		void				signForm(Form &form) const;
 		void				increment(void);
 		void				decrement(void);
+
 
 		// Exceptions
 		class GradeTooHighException : public std::exception
@@ -68,3 +70,4 @@ class Bureaucrat
 std::ostream &operator<<(std::ostream &out, Bureaucrat const &rhs);
 
 #endif
+

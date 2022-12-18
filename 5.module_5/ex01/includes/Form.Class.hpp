@@ -51,7 +51,7 @@ class Form
 			public:
 				const char	*what() const throw()
 				{
-					return ("grade is too high");
+					return ("\e[31mgrade is too high\e[0m");
 				}
 		};
 
@@ -60,7 +60,7 @@ class Form
 			public:
 				const char	*what() const throw()
 				{
-					return ("grade is too low");
+					return ("\e[31mgrade is too low\e[0m");
 				}
 		};
 
@@ -69,7 +69,7 @@ class Form
 			public:
 				const char	*what() const throw()
 				{
-					return ("Form is already signed");
+					return ("\e[31mForm is already signed\e[0m");
 				}
 		};
 };
