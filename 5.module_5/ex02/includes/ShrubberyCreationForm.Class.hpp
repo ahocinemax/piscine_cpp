@@ -24,7 +24,7 @@ class ShrubberyCreationForm : public Form
         ShrubberyCreationForm(std::string target);
         ShrubberyCreationForm(const ShrubberyCreationForm &Copy);
         ShrubberyCreationForm(void);
-        ~ShrubberyCreationForm(void);
+        virtual ~ShrubberyCreationForm(void);
 
         ShrubberyCreationForm &operator=(const ShrubberyCreationForm &rhs);
 

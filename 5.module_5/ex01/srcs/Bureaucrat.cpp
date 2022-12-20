@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   Bureaucrat.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahocine <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: ahocine <ahocine@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 22:58:30 by ahocine           #+#    #+#             */
 /*   Updated: 2022/11/26 22:58:31 by ahocine          ###   ########.fr       */
@@ -22,10 +22,8 @@ Bureaucrat::Bureaucrat(std::string name, int grade) : name(name), grade(grade)
 	std::cout << this->name << " called Bureaucrat full constructor" << std::endl;
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat &Copy)
+Bureaucrat::Bureaucrat(const Bureaucrat &src) : name(src.getName()), grade(src.getGrade())
 {
-	if (this == &Copy)
-		return ;
 	std::cout << this->name << " called Bureaucrat copy constructor" << std::endl;
 }
 
@@ -60,7 +58,7 @@ const std::string	&Bureaucrat::getName(void) const
 
 void	Bureaucrat::increment(void)
 {
-	if (this->getGrade() < 2)
+	if (this->getGrade() > 1)
 		grade -= 1;
 	else
 		throw GradeTooHighException();
@@ -68,7 +66,7 @@ void	Bureaucrat::increment(void)
 
 void	Bureaucrat::decrement(void)
 {
-	if (this->getGrade() > 149)
+	if (this->getGrade() < 150)
 		grade += 1;
 	else
 		throw GradeTooLowException();
@@ -111,7 +109,7 @@ Bureaucrat::GradeTooHighException
 
 const char	*Bureaucrat::GradeTooHighException::what() const throw()
 {
-	return ("Grade cannot be better than 1.");
+	return ("\e[31mGrade cannot be better than 1.\e[0m");
 }
 
 Bureaucrat::GradeTooLowException::GradeTooLowException(const GradeTooLowException &Copy)
@@ -138,7 +136,7 @@ Bureaucrat::GradeTooLowException
 
 const char	*Bureaucrat::GradeTooLowException::what() const throw()
 {
-	return ("Grade cannot be worst than 150.");
+	return ("\e[31mGrade cannot be worst than 150.\e[0m");
 }
 
 std::ostream &operator<<(std::ostream &out, Bureaucrat const &rhs)

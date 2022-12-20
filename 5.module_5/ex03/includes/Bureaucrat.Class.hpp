@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   Bureaucrat.Class.hpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahocine <ahocine@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ahocine <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 22:58:17 by ahocine           #+#    #+#             */
 /*   Updated: 2022/11/26 22:58:18 by ahocine          ###   ########.fr       */

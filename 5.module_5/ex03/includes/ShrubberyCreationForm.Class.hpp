@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PresidentialPardonForm.Class.hpp                   :+:      :+:    :+:   */
+/*   ShrubberyCreationForm.Class.hpp                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahocine <ahocine@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,25 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRESIDENTIALPARDONFORM_CLASS_HPP
-# define PRESIDENTIALPARDONFORM_CLASS_HPP
+#ifndef SHRUBBERYCREATIONFORM_CLASS_HPP
+# define SHRUBBERYCREATIONFORM_CLASS_HPP
 
 # include "Form.Class.hpp"
 
-class PresidentialPardonForm : public Form
+class ShrubberyCreationForm : public Form
 {
-	private:
-		std::string	name;
+    private:
+        std::string name;
+    
+    public:
+        ShrubberyCreationForm(std::string target);
+        ShrubberyCreationForm(const ShrubberyCreationForm &Copy);
+        ShrubberyCreationForm(void);
+        ~ShrubberyCreationForm(void);
 
-	public:
-		PresidentialPardonForm(std::string target);
-		PresidentialPardonForm(const PresidentialPardonForm &Copy);
-		PresidentialPardonForm(void);
-		virtual ~PresidentialPardonForm(void);
+        ShrubberyCreationForm &operator=(const ShrubberyCreationForm &rhs);
 
-		PresidentialPardonForm &operator=(const PresidentialPardonForm &rhs);
-
-		void    action(const Bureaucrat &manager) const;
+        void    action(const Bureaucrat &manager) const;
 };
 
 #endif

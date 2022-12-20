@@ -6,40 +6,18 @@
 
 int main()
 {
-	Bureaucrat john("John", 5);
+	Bureaucrat john("\e[34mJohn\e[0m", 5);
 
-	std::cout << john << std::endl;
+	PresidentialPardonForm a("\e[31mPPF\e[0m");
+	ShrubberyCreationForm b("\e[33mSCF\e[0m");
+	RobotomyRequestForm c("\e[32mRRF\e[0m");
 
-	try
-	{
-		john.increment();
-		john.decrement();
-		std::cout << john << std::endl;
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << std::endl;
-	}
-
-	PresidentialPardonForm a("a");
-	ShrubberyCreationForm b("b");
-	RobotomyRequestForm c("c");
 	std::cout << john << std::endl;
 	std::cout << a << std::endl;
 	std::cout << b << std::endl;
 	john.signForm(a);
 	john.signForm(b);
 	john.signForm(b);
-	
-	try
-	{
-		john.decrement();
-		std::cout << john << std::endl;
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << std::endl;
-	}
 	
 	john.signForm(c);
 	std::cout << a << std::endl;

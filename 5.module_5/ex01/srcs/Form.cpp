@@ -74,6 +74,7 @@ void	Form::beSigned(const Bureaucrat &Manager)
 			this->isSigned = true;
 		else
 			throw Form::GradeTooLowException();
+		std::cout << Manager.getName() << " signed " << this->getName() << std::endl;
 	}
 	else
 		throw Form::IsAlreadySignedException();

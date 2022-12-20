@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PresidentialPardonForm.Class.hpp                   :+:      :+:    :+:   */
+/*   RobotomyRequestForm.Class.hpp                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahocine <ahocine@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,25 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRESIDENTIALPARDONFORM_CLASS_HPP
-# define PRESIDENTIALPARDONFORM_CLASS_HPP
+#ifndef ROBOTOMYREQUESTFORM_CLASS_HPP
+# define ROBOTOMYREQUESTFORM_CLASS_HPP
 
 # include "Form.Class.hpp"
 
-class PresidentialPardonForm : public Form
+class RobotomyRequestForm : public Form
 {
-	private:
-		std::string	name;
+    private:
+        std::string name;
 
-	public:
-		PresidentialPardonForm(std::string target);
-		PresidentialPardonForm(const PresidentialPardonForm &Copy);
-		PresidentialPardonForm(void);
-		virtual ~PresidentialPardonForm(void);
+    public:
+        RobotomyRequestForm(std::string target);
+        RobotomyRequestForm(const RobotomyRequestForm &Copy);
+        RobotomyRequestForm(void);
+        ~RobotomyRequestForm(void);
 
-		PresidentialPardonForm &operator=(const PresidentialPardonForm &rhs);
+        RobotomyRequestForm &operator=(const RobotomyRequestForm &rhs);
 
-		void    action(const Bureaucrat &manager) const;
+        void    action(const Bureaucrat &manager) const;
 };
 
 #endif

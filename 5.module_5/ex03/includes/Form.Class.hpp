@@ -31,7 +31,7 @@ class Form
 		Form(const std::string &name);
 		Form(const std::string &name, const int gradeSign, const int gradeExec);
 		Form(const Form &src);
-		virtual ~Form(void);
+		~Form(void);
 		Form(void);
 		
 		// Assignement operator

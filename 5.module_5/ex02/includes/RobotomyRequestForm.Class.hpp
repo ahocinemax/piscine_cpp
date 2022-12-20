@@ -24,7 +24,7 @@ class RobotomyRequestForm : public Form
         RobotomyRequestForm(std::string target);
         RobotomyRequestForm(const RobotomyRequestForm &Copy);
         RobotomyRequestForm(void);
-        ~RobotomyRequestForm(void);
+        virtual ~RobotomyRequestForm(void);
 
         RobotomyRequestForm &operator=(const RobotomyRequestForm &rhs);
 

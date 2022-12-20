@@ -16,22 +16,20 @@
 # include <string>
 # include <iostream>
 
+class Form;
 class Intern
 {
-private:
-    /* data */
-public:
-    Intern(std::string form, std::string target);
-    ~Intern();
-    void    makeForm(void);
+	public:
+		Intern(void);
+		~Intern(void);
+
+		Form	*makeForm(const std::string &form, const std::string &target) const;
+
+		class InvalidFormException : public std::exception
+		{
+			public:
+				const char *what(void) const throw();
+		};
 };
-
-Intern::Intern(std::string form, std::string target)
-{
-}
-
-Intern::~Intern()
-{
-}
 
 #endif

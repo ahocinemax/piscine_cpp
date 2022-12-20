@@ -1,17 +1,19 @@
-NAME	=	Administation
+NAME		=	Administation
 
-SRC		=	srcs/PresidentialPardonForm.cpp \
-			srcs/ShrubberyCreationForm.cpp \
-			srcs/RobotomyRequestForm.cpp \
-			srcs/Bureaucrat.cpp \
-			srcs/Form.cpp \
-			srcs/main.cpp
+INCLUDES	= includes
 
-FLAGS	=	-Wall -Werror -Wextra -std=c++98 -g3
+SRC			=	srcs/Bureaucrat.cpp \
+				srcs/Form.cpp \
+				srcs/PresidentialPardonForm.cpp \
+				srcs/ShrubberyCreationForm.cpp \
+				srcs/RobotomyRequestForm.cpp \
+				srcs/main.cpp
 
-CC		=	c++
+FLAGS		=	-Wall -Werror -Wextra -std=c++98 -g3 -I$(INCLUDES)
 
-OBJ		=	$(SRC:.cpp=.o)
+CC			=	c++
+
+OBJ			=	$(SRC:.cpp=.o)
 
 all: $(NAME)
 	@printf "\e[36msuccessfully\e[0m\e[33m compiled \e[92m!\e[0m\e[?25h\n"
