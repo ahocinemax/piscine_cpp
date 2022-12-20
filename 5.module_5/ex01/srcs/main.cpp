@@ -32,7 +32,7 @@ int main()
 
 	try
 	{
-		Form *module5 = new Form("\e[35mintern\e[0m", 13, 82);
+		Form *module5 = new Form("\e[35minscription\e[0m", 13, 82);
 		if (module5->getIsSigned())
 			std::cout << module5->getName() << " \e[32mis signed\e[0m." << std::endl;
 		else

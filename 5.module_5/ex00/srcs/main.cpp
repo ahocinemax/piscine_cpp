@@ -4,10 +4,10 @@ int	main(void)
 {
 	try
 	{
-		Bureaucrat bureaucrat1("Jean", 1000);
+		Bureaucrat bureaucrat1("Jean", 100);
 		try
 		{
-			Bureaucrat bureaucrat2("Benoit", -15);
+			Bureaucrat bureaucrat2("Benoit", 15);
 			for (int i = 0 ; i < 5 ; i++)
 			{
 				std::cout << bureaucrat2.getGrade() << std::endl;

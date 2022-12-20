@@ -16,10 +16,14 @@ int main()
 	std::cout << a << std::endl;
 	std::cout << b << std::endl;
 	john.signForm(a);
+
 	john.signForm(b);
-	john.signForm(b);
+	john.signForm(b); // cant sign because already signed
 	
 	john.signForm(c);
+	a.action(john);
+	b.action(john);
+	c.action(john);
 	std::cout << a << std::endl;
 	std::cout << b << std::endl;
 	std::cout << c << std::endl;

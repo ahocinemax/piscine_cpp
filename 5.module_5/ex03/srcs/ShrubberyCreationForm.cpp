@@ -14,7 +14,7 @@
 #include <fstream>
 #include <cstring>
 
-ShrubberyCreationForm::ShrubberyCreationForm(std::string target) : Form("ShrubberyCreationForm", 25, 5), name(target)
+ShrubberyCreationForm::ShrubberyCreationForm(std::string target) : Form("ShrubberyCreationForm", 145, 137), name(target)
 {
 	std::cout << name << " called SCF full constructor" << std::endl;
 }
@@ -26,7 +26,7 @@ ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &Copy) 
 	std::cout << Copy.name << " called SCF copy constructor" << std::endl;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(void) : Form("ShrubberyCreationForm", 25, 5), name("NO_NAME")
+ShrubberyCreationForm::ShrubberyCreationForm(void) : Form("ShrubberyCreationForm", 145, 137), name("NO_NAME")
 {
 	std::cout << name << " called SCF default constructor" << std::endl;
 }
@@ -50,7 +50,7 @@ ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationF
 void	ShrubberyCreationForm::action(const Bureaucrat &manager) const
 {
 	this->Form::execute(manager);
-	std::ofstream ofs(this->getName() + "_shrubbery");
+	std::ofstream ofs("John_shrubbery");
 	if (!ofs.is_open())
 		throw std::ofstream::failure(strerror(errno));
 	ofs << "──▒▒▒▒▒▒▒▒───▒▒▒▒▒▒▒▒ " << std::endl;

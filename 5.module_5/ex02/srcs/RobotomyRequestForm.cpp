@@ -12,7 +12,7 @@
 
 #include "../includes/RobotomyRequestForm.Class.hpp"
 
-RobotomyRequestForm::RobotomyRequestForm(std::string target) : Form("RobotomyRequestForm", 25, 5), name(target)
+RobotomyRequestForm::RobotomyRequestForm(std::string target) : Form("RobotomyRequestForm", 72, 45), name(target)
 {
 	std::cout << name << " called RRF full constructor" << std::endl;
 }
@@ -24,7 +24,7 @@ RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &Copy) : Form
 	std::cout << Copy.name << " called RRF copy constructor" << std::endl;
 }
 
-RobotomyRequestForm::RobotomyRequestForm(void) : Form("RobotomyRequestForm", 25, 5), name("NO_NAME")
+RobotomyRequestForm::RobotomyRequestForm(void) : Form("RobotomyRequestForm", 72, 45), name("NO_NAME")
 {
 	std::cout << name << " called RRF default constructor" << std::endl;
 }
@@ -50,7 +50,7 @@ void	RobotomyRequestForm::action(const Bureaucrat &manager) const
 	this->Form::execute(manager);
 	std::cout << "Make some drilling noises" << std::endl;
 	if (rand() < RAND_MAX / 2)
-		std::cout << this->getName() << " has been robotomized successfully." << std::endl;
+		std::cout << manager.getName() << " has been robotomized successfully." << std::endl;
 	else
-		std::cout << "Robotomy on " << this->getName() << "has failed." << std::endl;
+		std::cout << "Robotomy on " << manager.getName() << " has failed." << std::endl;
 }

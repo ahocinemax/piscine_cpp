@@ -15,8 +15,7 @@
 
 # include <string>
 # include <iostream>
-
-class Bureaucrat;
+# include "Bureaucrat.Class.hpp"
 
 class Form
 {
