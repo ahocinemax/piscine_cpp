@@ -1,7 +1,6 @@
 NAME	=	Serialization
 
-SRC		=	srcs/Data.cpp \
-			srcs/main.cpp
+SRC		=	srcs/main.cpp
 
 FLAGS	=	-Wall -Werror -Wextra -std=c++98 -g3
 
