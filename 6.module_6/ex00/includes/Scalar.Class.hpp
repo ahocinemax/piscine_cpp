@@ -28,19 +28,19 @@ class Scalar
 		char	toChar(void) const;
 		int		toInt(void) const;
 
-		class InvalidInputException : std::exception
+		class InvalidInputException : public std::exception
 		{
 			public:
 				const char *what() const throw();
 		};
 
-		class NonPrintableException : std::exception
+		class NonPrintableException : public std::exception
 		{
 			public:
 				const char *what() const throw();
 		};
 
-		class ImpossibleException : std::exception
+		class ImpossibleException : public std::exception
 		{
 			public:
 				const char *what() const throw();

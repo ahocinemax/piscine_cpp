@@ -134,7 +134,6 @@ char	Scalar::toChar(void) const
 					throw Scalar::NonPrintableException();
 				else
 					return (c);
-			
 			case floatType:
 				c = static_cast<char>(this->decimal);
 				if (isnan(this->decimal) || isinf(this->decimal)
@@ -161,7 +160,7 @@ char	Scalar::toChar(void) const
 	}	
 	catch(const std::exception& e)
 	{
-		std::cerr << e.what() << '\n';
+		std::cerr << e.what();
 	}
 	return (0);
 }
@@ -199,7 +198,7 @@ int	Scalar::toInt(void) const
 	}
 	catch (const std::exception &e)
 	{
-		std::cerr << e.what() << '\n';
+		std::cerr << e.what();
 		return (-1);
 	}
 }

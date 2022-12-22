@@ -17,15 +17,8 @@ int main (int ac, char **av)
 	}
 	
 	std::string str = *av;
-	try
-	{
-		Scalar	mod(str);
-		std::cout << mod << std::endl;
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-	}
-	
+	Scalar	mod(str);
+	std::cout << mod << std::endl;
+
 	return (0);
 }
