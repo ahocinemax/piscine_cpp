@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BASE_CLASS_HPP
-# define BASE_CLASS_HPP
+#ifndef B_CLASS_HPP
+# define B_CLASS_HPP
 
 # include "Base.Class.hpp"
 

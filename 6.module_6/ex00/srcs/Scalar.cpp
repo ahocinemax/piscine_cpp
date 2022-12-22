@@ -2,57 +2,64 @@
 
 Scalar::Scalar(std::string &str) : str(str)
 {
-	if (str.empty())
-		throw Scalar::InvalidInputException();
-	else if (str.size() == 1)
+	try
 	{
-		if (isdigit(str.front()))
+		if (str.empty())
+			throw Scalar::InvalidInputException();
+		else if (str.size() == 1)
 		{
-			this->entier = static_cast<int>(strtol(str.c_str(), NULL, 10));
-			this->type = intType;
-		}
-		else
-		{
-			this->lettre = str.front();
-			this->type = charType;
-		}
-	}
-	else
-	{
-		char *LongRest = 0;
-		long LongVal = strtol(str.c_str(), &LongRest, 10);
-		char *DoubleRest = 0;
-		long DoubleVal = strtol(str.c_str(), &DoubleRest, 10);
-		if (*LongRest)
-		{
-			if (*DoubleRest)
+			if (isdigit(str.front()))
 			{
-				if (*DoubleRest == 'f')
-				{
-					this->decimal = static_cast<float>(DoubleVal);
-					this->type = floatType;
-				}
-				else
-					throw Scalar::InvalidInputException();
-			}
-			else
-			{
-				this->precision = DoubleVal;
-				this->type = doubleType;
-			}
-		}
-		else
-		{
-			if (LongVal < std::numeric_limits<int>::min() || LongVal > std::numeric_limits<int>::max())
-				throw Scalar::InvalidInputException();
-			else
-			{
-				this->entier = static_cast<int>(LongVal);
+				this->entier = static_cast<int>(strtol(str.c_str(), NULL, 10));
 				this->type = intType;
 			}
+			else
+			{
+				this->lettre = str.front();
+				this->type = charType;
+			}
 		}
+		else
+		{
+			char *LongRest = 0;
+			long LongVal = strtol(str.c_str(), &LongRest, 10);
+			char *DoubleRest = 0;
+			long DoubleVal = strtol(str.c_str(), &DoubleRest, 10);
+			if (*LongRest)
+			{
+				if (*DoubleRest)
+				{
+					if (*DoubleRest == 'f')
+					{
+						this->decimal = static_cast<float>(DoubleVal);
+						this->type = floatType;
+					}
+					else
+						throw Scalar::InvalidInputException();
+				}
+				else
+				{
+					this->precision = DoubleVal;
+					this->type = doubleType;
+				}
+			}
+			else
+			{
+				if (LongVal < std::numeric_limits<int>::min() || LongVal > std::numeric_limits<int>::max())
+					throw Scalar::InvalidInputException();
+				else
+				{
+					this->entier = static_cast<int>(LongVal);
+					this->type = intType;
+				}
+			}
+		}
+		std::cout << "Scalar full constructor called" << std::endl;
 	}
-	std::cout << "Scalar full constructor called" << std::endl;
+	catch (const std::exception &e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
 }
 
 Scalar::Scalar(const Scalar &other) : str(other.str), decimal(other.decimal), entier(other.entier),
@@ -81,12 +88,36 @@ Scalar::~Scalar(void)
 
 double	Scalar::toDouble(void) const
 {
-	return (0);
+	switch (type)
+	{
+		case doubleType:
+			return (this->precision);
+		case intType:
+			return (static_cast<double>(this->entier));
+		case charType:
+			return (static_cast<double>(this->lettre));
+		case floatType:
+			return (static_cast<double>(this->decimal));
+		default:
+			throw Scalar::InvalidInputException();
+	}
 }
 
 float	Scalar::toFloat(void) const
 {
-	return (0);
+	switch (type)
+	{
+		case intType:
+			return (static_cast<float>(this->entier));
+		case charType:
+			return (static_cast<float>(this->lettre));
+		case floatType:
+			return (this->decimal);
+		case doubleType:
+			return (static_cast<float>(this->precision));
+		default:
+			throw Scalar::InvalidInputException();
+	}
 }
 
 char	Scalar::toChar(void) const
@@ -169,8 +200,8 @@ int	Scalar::toInt(void) const
 	catch (const std::exception &e)
 	{
 		std::cerr << e.what() << '\n';
+		return (-1);
 	}
-	return (-1);
 }
 
 const char	*Scalar::InvalidInputException::what() const throw()

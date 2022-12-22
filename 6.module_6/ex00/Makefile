@@ -1,4 +1,4 @@
-NAME		=	Administation
+NAME		=	Converter
 
 INCLUDES	= includes
 
