@@ -5,10 +5,7 @@ Scalar::Scalar(std::string &str) : str(str)
 	try
 	{
 		if (str.empty())
-		{
-			std::cout << "1\n";
 			throw Scalar::InvalidInputException();
-		}
 		else if (str.size() == 1)
 		{
 			if (isdigit(str.front()))
@@ -68,6 +65,19 @@ Scalar::Scalar(std::string &str) : str(str)
 	catch (const std::exception &e)
 	{
 		std::cerr << e.what() << std::endl;
+		switch (this->type)
+		{
+		case doubleType:
+			std::cerr << "doubleType" << std::endl;
+		case intType:
+			std::cerr << "intType" << std::endl;
+		case charType:
+			std::cerr << "charType" << std::endl;
+		case floatType:
+			std::cerr << "floatType" << std::endl;
+		default:
+			break;
+		}
 	}
 }
 
@@ -214,6 +224,11 @@ int	Scalar::toInt(void) const
 	}
 }
 
+int		Scalar::getType(void) const
+{
+	return (this->type);
+}
+
 const char	*Scalar::InvalidInputException::what() const throw()
 {
 	return ("\e[31minvalid input\e[0m");
@@ -231,9 +246,12 @@ const char	*Scalar::NonPrintableException::what() const throw()
 
 std::ostream& operator<<(std::ostream& out, const Scalar& rhs)
 {
-	std::cout << "int: " << rhs.toInt() << std::endl;
-	std::cout << "char: " << rhs.toChar() << std::endl;
-	std::cout << "double: " << rhs.toDouble() << std::endl;
-	std::cout << "float: " << rhs.toFloat() << std::endl;
+	if (rhs.getType() >= 0 && rhs.getType() <= 3)
+	{
+		std::cout << "int: " << rhs.toInt() << std::endl;
+		std::cout << "char: " << rhs.toChar() << std::endl;
+		std::cout << "double: " << rhs.toDouble() << std::endl;
+		std::cout << "float: " << rhs.toFloat() << std::endl;
+	}
 	return (out);
 }

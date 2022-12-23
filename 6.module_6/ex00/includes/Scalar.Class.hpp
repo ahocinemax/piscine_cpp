@@ -28,6 +28,8 @@ class Scalar
 		char	toChar(void) const;
 		int		toInt(void) const;
 
+		int		getType(void) const;
+
 		class InvalidInputException : public std::exception
 		{
 			public:
