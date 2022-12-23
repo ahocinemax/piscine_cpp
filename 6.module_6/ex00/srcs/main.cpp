@@ -9,16 +9,16 @@ int main (int ac, char **av)
 		return (0);
 	}
 	av++;
-	char val = **av;
-	if (val < 32 || val > 126)
-	{
-		std::cerr << "please enter a value between 32 - 126" << std::endl;
-		return (0);
-	}
 	
 	std::string str = *av;
-	Scalar	mod(str);
-	std::cout << mod << std::endl;
-
+	try
+	{
+		Scalar	mod(str);
+		std::cout << mod << std::endl;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what();
+	}
 	return (0);
 }

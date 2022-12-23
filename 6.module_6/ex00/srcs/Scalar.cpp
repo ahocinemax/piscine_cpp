@@ -5,7 +5,10 @@ Scalar::Scalar(std::string &str) : str(str)
 	try
 	{
 		if (str.empty())
+		{
+			std::cout << "1\n";
 			throw Scalar::InvalidInputException();
+		}
 		else if (str.size() == 1)
 		{
 			if (isdigit(str.front()))
@@ -35,7 +38,10 @@ Scalar::Scalar(std::string &str) : str(str)
 						this->type = floatType;
 					}
 					else
+					{
+						std::cout << "2\n";
 						throw Scalar::InvalidInputException();
+					}
 				}
 				else
 				{
@@ -46,7 +52,10 @@ Scalar::Scalar(std::string &str) : str(str)
 			else
 			{
 				if (LongVal < std::numeric_limits<int>::min() || LongVal > std::numeric_limits<int>::max())
+				{
 					throw Scalar::InvalidInputException();
+					std::cout << "3\n";
+				}
 				else
 				{
 					this->entier = static_cast<int>(LongVal);
@@ -99,6 +108,7 @@ double	Scalar::toDouble(void) const
 		case floatType:
 			return (static_cast<double>(this->decimal));
 		default:
+			std::cout << "4\n";
 			throw Scalar::InvalidInputException();
 	}
 }
@@ -116,6 +126,7 @@ float	Scalar::toFloat(void) const
 		case doubleType:
 			return (static_cast<float>(this->precision));
 		default:
+			std::cout << "5\n";
 			throw Scalar::InvalidInputException();
 	}
 }
@@ -130,7 +141,7 @@ char	Scalar::toChar(void) const
 		{
 			case intType:
 				c = static_cast<char>(this->entier);
-				if (!isprint(c))
+				if (!isprint(c) || this->entier < 32 || this->entier > 126)
 					throw Scalar::NonPrintableException();
 				else
 					return (c);
@@ -139,7 +150,7 @@ char	Scalar::toChar(void) const
 				if (isnan(this->decimal) || isinf(this->decimal)
 					|| this->decimal > std::numeric_limits<char>::max() || this->decimal < std::numeric_limits<char>::min())
 					throw Scalar::ImpossibleException();
-				else if (!isprint(c))
+				else if (!isprint(c) || this->entier < 32 || this->entier > 126)
 					throw Scalar::NonPrintableException();
 				else
 					return (c);
@@ -149,7 +160,7 @@ char	Scalar::toChar(void) const
 				if (isnan(this->precision) || isinf(this->precision)
 					|| this->precision > std::numeric_limits<char>::max() || this->precision < std::numeric_limits<char>::min())
 					throw Scalar::ImpossibleException();
-				else if (!isprint(c))
+				else if (!isprint(c) || this->entier < 32 || this->entier > 126)
 					throw Scalar::NonPrintableException();
 				else
 					return (c);
@@ -205,17 +216,17 @@ int	Scalar::toInt(void) const
 
 const char	*Scalar::InvalidInputException::what() const throw()
 {
-	return ("\e[31minvalid input\e[0m\n");
+	return ("\e[31minvalid input\e[0m");
 }
 
 const char	*Scalar::ImpossibleException::what() const throw()
 {
-	return ("\e[31mimpossible conversion\e[0m\n");
+	return ("\e[31mimpossible conversion\e[0m");
 }
 
 const char	*Scalar::NonPrintableException::what() const throw()
 {
-	return ("\e[31mcannot display restult\e[0m\n");
+	return ("\e[31mcannot display restult\e[0m");
 }
 
 std::ostream& operator<<(std::ostream& out, const Scalar& rhs)
