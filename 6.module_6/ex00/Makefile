@@ -1,6 +1,6 @@
 NAME		=	Converter
 
-INCLUDES	= includes
+INCLUDES	=	includes
 
 SRC			=	srcs/Scalar.cpp \
 				srcs/main.cpp

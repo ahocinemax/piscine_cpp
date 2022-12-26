@@ -1,7 +1,9 @@
 #include "../includes/Scalar.Class.hpp"
+#include <stdlib.h>
 
 Scalar::Scalar(std::string &str) : str(str)
 {
+	std::cout << "Scalar full constructor called" << std::endl;
 	try
 	{
 		if (str.empty())
@@ -21,63 +23,43 @@ Scalar::Scalar(std::string &str) : str(str)
 		}
 		else
 		{
-			char *LongRest = 0;
-			long LongVal = strtol(str.c_str(), &LongRest, 10);
-			char *DoubleRest = 0;
-			long DoubleVal = strtol(str.c_str(), &DoubleRest, 10);
-			if (*LongRest)
+			long value = strtol(str.c_str(), NULL, 10);
+			if (value < std::numeric_limits<int>::min() || value > std::numeric_limits<int>::max())
 			{
-				if (*DoubleRest)
+				if (str.back() == 'f' && (value > std::numeric_limits<float>::min() && value < std::numeric_limits<float>::max()))
 				{
-					if (*DoubleRest == 'f')
-					{
-						this->decimal = static_cast<float>(DoubleVal);
-						this->type = floatType;
-					}
-					else
-					{
-						std::cout << "2\n";
-						throw Scalar::InvalidInputException();
-					}
+					this->decimal = static_cast<float>(value);
+					this->type = floatType;
 				}
 				else
 				{
-					this->precision = DoubleVal;
+					this->precision = value;
 					this->type = doubleType;
 				}
 			}
 			else
 			{
-				if (LongVal < std::numeric_limits<int>::min() || LongVal > std::numeric_limits<int>::max())
-				{
-					throw Scalar::InvalidInputException();
-					std::cout << "3\n";
-				}
-				else
-				{
-					this->entier = static_cast<int>(LongVal);
-					this->type = intType;
-				}
+				this->entier = static_cast<int>(value);
+				this->type = intType;
 			}
 		}
-		std::cout << "Scalar full constructor called" << std::endl;
 	}
 	catch (const std::exception &e)
 	{
-		std::cerr << e.what() << std::endl;
 		switch (this->type)
 		{
-		case doubleType:
-			std::cerr << "doubleType" << std::endl;
-		case intType:
-			std::cerr << "intType" << std::endl;
-		case charType:
-			std::cerr << "charType" << std::endl;
-		case floatType:
-			std::cerr << "floatType" << std::endl;
-		default:
-			break;
+			case doubleType:
+				std::cerr << "doubleType" << std::endl;
+			case intType:
+				std::cerr << "intType" << std::endl;
+			case charType:
+				std::cerr << "charType" << std::endl;
+			case floatType:
+				std::cerr << "floatType" << std::endl;
+			default:
+				break;
 		}
+		std::cerr << e.what() << std::endl;
 	}
 }
 
@@ -118,7 +100,6 @@ double	Scalar::toDouble(void) const
 		case floatType:
 			return (static_cast<double>(this->decimal));
 		default:
-			std::cout << "4\n";
 			throw Scalar::InvalidInputException();
 	}
 }
@@ -136,7 +117,6 @@ float	Scalar::toFloat(void) const
 		case doubleType:
 			return (static_cast<float>(this->precision));
 		default:
-			std::cout << "5\n";
 			throw Scalar::InvalidInputException();
 	}
 }
@@ -199,8 +179,8 @@ int	Scalar::toInt(void) const
 
 			case floatType:
 				val = static_cast<int>(this->decimal);
-				if (isnan(this->decimal) || isinf(this->decimal)
-					|| this->decimal > std::numeric_limits<int>::max() || this->decimal < std::numeric_limits<int>::min())
+				if (isnan(this->decimal) || isinf(this->decimal) || this->decimal > std::numeric_limits<int>::max()
+					|| this->decimal < std::numeric_limits<int>::min())
 					throw Scalar::ImpossibleException();
 				else
 					return (val);
@@ -220,7 +200,7 @@ int	Scalar::toInt(void) const
 	catch (const std::exception &e)
 	{
 		std::cerr << e.what();
-		return (-1);
+		return (0);
 	}
 }
 
@@ -251,7 +231,7 @@ std::ostream& operator<<(std::ostream& out, const Scalar& rhs)
 		std::cout << "int: " << rhs.toInt() << std::endl;
 		std::cout << "char: " << rhs.toChar() << std::endl;
 		std::cout << "double: " << rhs.toDouble() << std::endl;
-		std::cout << "float: " << rhs.toFloat() << std::endl;
+		std::cout << "float: " << rhs.toFloat() << "f\n";
 	}
 	return (out);
 }

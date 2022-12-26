@@ -18,15 +18,17 @@ int main (int ac, char **av)
 			int	i = 0;
 			if (*tmp == '-' || *tmp == '+')
 				i++;
-			while (tmp[i])
+			while (tmp[i + 1])
 			{
-				if (tmp[i] < '0' || tmp[i] > '9')
+				if (!isdigit(tmp[i]))
 				{
-					std::cerr << "not a digit" << std::endl;
+					std::cerr << "not a digit\n";
 					throw Scalar::InvalidInputException();
 				}
 				i++;
 			}
+			if (!isdigit(tmp[i]) && tmp[i] != 'f')
+				throw Scalar::InvalidInputException();
 		}
 	}
 	catch(const std::exception& e)
@@ -34,7 +36,7 @@ int main (int ac, char **av)
 		std::cerr << e.what() << '\n';
 		return (0);
 	}
-	
+
 	try
 	{
 		Scalar	mod(str);
@@ -42,6 +44,7 @@ int main (int ac, char **av)
 	}
 	catch(const std::exception& e)
 	{
+		std::cerr << "invalid exception\n";
 		std::cerr << e.what();
 	}
 	return (0);
