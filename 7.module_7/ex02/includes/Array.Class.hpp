@@ -1,5 +1,5 @@
-#ifndef ITER_CLASS_HPP
-# define ITER_CLASS_HPP
+#ifndef ARRAY_CLASS_HPP
+# define ARRAY_CLASS_HPP
 
 #include <iostream>
 #include <string>
@@ -10,13 +10,22 @@ class Array
 	private:
 		size_t	size;
 		T		*array;
-	public:
-		Array(void);
-		Array(size_t n);
-		Array(const Array &Copy);
-		~Array(void);
 
-		Array &operator=(const Array &rhs)
+	public:
+		Array(const Array &Copy);
+		Array(size_t n);
+		~Array(void);
+		Array(void);
+
+		Array &operator[](size_t index);
+		Array &operator=(const Array &rhs);
+		size_t	getSize(void) const;
+
+		class OutOfRangeException : virtual public std::exception
+		{
+			public:
+				virtual const char *what() const throw();
+		};
 };
 
 #endif
