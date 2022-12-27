@@ -23,7 +23,7 @@ Scalar::Scalar(std::string &str) : str(str)
 		}
 		else
 		{
-			long value = strtol(str.c_str(), NULL, 10);
+			double value = strtod(str.c_str(), NULL);
 			if (value < std::numeric_limits<int>::min() || value > std::numeric_limits<int>::max())
 			{
 				if (str.back() == 'f' && (value > std::numeric_limits<float>::min() && value < std::numeric_limits<float>::max()))
@@ -200,7 +200,7 @@ int	Scalar::toInt(void) const
 	catch (const std::exception &e)
 	{
 		std::cerr << e.what();
-		return (0);
+		return (346513);
 	}
 }
 
@@ -228,7 +228,11 @@ std::ostream& operator<<(std::ostream& out, const Scalar& rhs)
 {
 	if (rhs.getType() >= 0 && rhs.getType() <= 3)
 	{
-		std::cout << "int: " << rhs.toInt() << std::endl;
+		std::cout << "int: ";
+		if (rhs.toInt() != 346513)
+			std::cout << rhs.toInt() << std::endl;
+		else
+			std::cout << std::endl;
 		std::cout << "char: " << rhs.toChar() << std::endl;
 		std::cout << "double: " << rhs.toDouble() << std::endl;
 		std::cout << "float: " << rhs.toFloat() << "f\n";
