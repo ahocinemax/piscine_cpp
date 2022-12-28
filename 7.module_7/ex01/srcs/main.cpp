@@ -1,4 +1,4 @@
-#include "../includes/iter.Class.hpp"
+#include "../includes/Iter.Class.hpp"
 
 int	main(void)
 {

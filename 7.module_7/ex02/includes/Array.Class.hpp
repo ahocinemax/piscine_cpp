@@ -1,5 +1,5 @@
-#ifndef ARRAY_CLASS_HPP
-# define ARRAY_CLASS_HPP
+#ifndef ITER_CLASS_HPP
+# define ITER_CLASS_HPP
 
 #include <iostream>
 #include <string>
@@ -12,19 +12,52 @@ class Array
 		T		*array;
 
 	public:
-		Array(const Array &Copy);
-		Array(size_t n);
-		~Array(void);
-		Array(void);
+		Array(void) : size(0), array(new T[0]) {return ;}
 
-		Array &operator[](size_t index);
-		Array &operator=(const Array &rhs);
-		size_t	getSize(void) const;
+		Array(size_t n) : size(n), array(new T[n]) {return ;}
+
+		Array(const Array &Copy)
+		{
+			this->size = Copy.size;
+			this->array = new T[Copy.size];
+			for (size_t i = 0 ; i < Copy.size ; i++)
+				this->array[i] = Copy.array[i];
+		}
+
+		~Array(void)
+		{
+			delete [] this->array;
+		}
+
+		size_t getSize(void) const {return this->size;}
+
+		Array &operator=(const Array &rhs)
+		{
+			if (this != &rhs)
+			{
+				this->~Array();
+				this->size = rhs.size;
+				this->array = new T[rhs.size];
+				for (size_t i = 0 ; i < rhs.size ; i++)
+					this->array[i] = rhs.array[i];
+			}
+			return (*this);
+		}
+
+		T &operator[](size_t index)
+		{
+			if (this->size < 0 || this->size >= index)
+				throw OutOfRangeException();
+			return (this->array[index]);
+		}
 
 		class OutOfRangeException : virtual public std::exception
 		{
 			public:
-				virtual const char *what() const throw();
+				virtual const char *what() const throw()
+				{
+					return ("error: Value is out of range");
+				}
 		};
 };
 

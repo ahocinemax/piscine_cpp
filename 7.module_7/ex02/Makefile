@@ -2,8 +2,7 @@ NAME		=	Array
 
 INCLUDES	=	includes
 
-SRC			=	srcs/Array.cpp \
-				srcs/main.cpp
+SRC			=	srcs/main.cpp
 				
 
 FLAGS		=	-Wall -Werror -Wextra -std=c++98 -g3 -I$(INCLUDES)
