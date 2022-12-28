@@ -46,12 +46,12 @@ class Array
 
 		T &operator[](size_t index)
 		{
-			if (this->size < 0 || this->size >= index)
+			if (index >= this->size)
 				throw OutOfRangeException();
 			return (this->array[index]);
 		}
 
-		class OutOfRangeException : virtual public std::exception
+		class OutOfRangeException : public std::exception
 		{
 			public:
 				virtual const char *what() const throw()

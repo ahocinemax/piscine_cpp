@@ -2,47 +2,40 @@
 #include "../includes/Array.Class.hpp"
 #include <stdlib.h>
 
-#define MAX_VAL 5
+#define MAX_VAL 50
 int main()
 {
     Array<int> numbers(MAX_VAL);
     int* mirror = new int[MAX_VAL];
     srand(time(NULL));
-    for (int i = 0; i < MAX_VAL - 1; i++)
+    try
     {
-        const int value = rand();
-        std::cout << value << std::endl;
-        numbers[i] = value;
-        mirror[i] = value;
-    }
-    //SCOPE
-    {
+        for (int i = 0; i < MAX_VAL - 1 ; i++)
+        {
+            int value = rand();
+            std::cout << i << " <- i || value -> " << value << std::endl;
+            numbers[i] = value;
+            mirror[i] = value;
+        }
+
         Array<int> tmp = numbers;
         Array<int> test(tmp);
+
+        numbers[-2] = 0;
+        numbers[MAX_VAL] = 0;
+
+        for (int i = 0; i < MAX_VAL - 1 ; i++)
+        {
+            numbers[i] = rand();
+        }
+
     }
 
-    // try
-    // {
-    //     numbers[-2] = 0;
-    // }
-    // catch(const std::exception& e)
-    // {
-    //     std::cerr << e.what() << '\n';
-    // }
-
-    // try
-    // {
-    //     numbers[MAX_VAL] = 0;
-    // }
-    // catch(const std::exception& e)
-    // {
-    //     std::cerr << e.what() << '\n';
-    // }
-
-    for (int i = 0; i < MAX_VAL; i++)
+    catch(const std::exception& e)
     {
-        numbers[i] = rand();
+        std::cerr << e.what() << '\n';
     }
+    
 
     delete [] mirror;//
     return 0;
