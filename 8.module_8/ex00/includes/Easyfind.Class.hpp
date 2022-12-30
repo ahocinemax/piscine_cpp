@@ -14,7 +14,7 @@ class EmptyArrayException : public std::exception
 class ElementNotFoundException : public std::exception
 {
 	public:
-		virtual const char	*what() const throw() {return ("Element not found on container\n");}
+		virtual const char	*what() const throw() {return ("Element not found in container\n");}
 
 };
 
@@ -25,11 +25,9 @@ typename T::iterator	easyfind(T &array, int value)
 
 	if (array.empty())
 		throw EmptyArrayException();
-	for (it = array.begin() ; it != array.end() ; it++)
-	{
-		if (*it == value)
-			return (it);
-	}
+	it = std::find(array.begin(), array.end(), value);
+	if (it != array.end())
+		return (it);
 	throw ElementNotFoundException();
 }
 
