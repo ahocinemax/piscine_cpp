@@ -21,24 +21,6 @@ class BitcoinExchange
 		std::vector<std::vector<std::string> >  getDatabase(void);
 		void									getValues(void);
 
-		class TooHighException : public std::exception
-		{
-			public:
-				virtual const char *what() const throw()
-				{
-					return "Error: too large a number.";
-				}
-		};
-
-		class NegativeException : public std::exception
-		{
-			public:
-				virtual const char *what() const throw()
-				{
-					return "Error: Not a positive number.";
-				}
-		};
-
 		class InvalidInputException : public std::exception
 		{
 			private:

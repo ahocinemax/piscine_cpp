@@ -37,17 +37,16 @@ void BitcoinExchange::getValues(void)
 			if ((*it)[0] == (*it2)[0])
 			{
 				if (atof((*it)[1].c_str()) > INT_MAX)
-					throw BitcoinExchange::TooHighException();
-				if (atof((*it)[1].c_str()) < 0)
-					throw BitcoinExchange::NegativeException();
-				if (!isNumeric((*it)[1]))
+					std::cerr << "Error: too large a number." << std::endl;
+				else if (atof((*it)[1].c_str()) < 0)
+					std::cerr << "Error: Not a positive number." << std::endl;
+				else if (!isNumeric((*it)[1]) || !(*it)[1].length())
+					std::cerr << "Error: bad input => " << (*it)[0] << std::endl; // 
+				else
 				{
-					std::cout << "Non-numeric value: " << (*it)[1] << std::endl;
-					throw BitcoinExchange::InvalidInputException((*it2)[1]);
+					float value = atof((*it2)[1].c_str()) * atof((*it)[1].c_str());
+					std::cout << (*it)[0] << " " << (*it)[1] << " " << value << std::endl;
 				}
-				float value = atof((*it2)[1].c_str()) * atof((*it)[1].c_str());
-				std::cout << (*it)[0] << " " << (*it)[1] << " " << value << std::endl;
-				break;
 			}
 			it2++;
 		}
@@ -99,9 +98,6 @@ std::vector<std::vector<std::string> > parseDatabase(char *argv)
 	{
 		// Read a line from File into a std::vector<std::string>
 		line = getNextLineAndSplitIntoTokens(file);
-		// Parse the data
-		if (!parse(line))
-			continue;
 		// Add the above std::vector<std::string> to a std::vector<std::vector<std::string> >
 		vec.push_back(line);
 	}
@@ -119,9 +115,6 @@ std::vector<std::vector<std::string> > parseDatabase(const char *argv)
 	{
 		// Read a line from File into a std::vector<std::string>
 		line = getNextLineAndSplitIntoTokens(file);
-		// Parse the data
-		if (!parse(line))
-			continue;
 		// Add the above std::vector<std::string> to a std::vector<std::vector<std::string> >
 		vec.push_back(line);
 	}
