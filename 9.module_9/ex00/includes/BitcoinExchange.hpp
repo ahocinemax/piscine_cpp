@@ -6,19 +6,20 @@
 # include <sstream>
 # include <vector>
 # include <string>
+# include <stdlib.h>
+# include <limits.h>
+# include <stdio.h>
 
 class BitcoinExchange
 {
 	public:
 		BitcoinExchange(const char *request);
 		~BitcoinExchange(void);
-		BitcoinExchange(void);
 
-		void  setDatabase(char *src);
-		void  setDatabase(const char *src);
+		void  									setDatabase(char *src);
+		void  									setDatabase(const char *src);
 		std::vector<std::vector<std::string> >  getDatabase(void);
-		void  getValues(void);
-		std::vector<std::string> 				_getNextLineAndSplitIntoTokens(std::istream& str);
+		void									getValues(void);
 
 		class TooHighException : public std::exception
 		{
@@ -66,8 +67,13 @@ class BitcoinExchange
 		std::vector<std::vector<std::string> >  _database;
 		std::vector<std::vector<std::string> >  _request;
 
-		std::vector<std::vector<std::string> >	_parseDatabase(char *argv);
-
 };
+
+std::vector<std::string>				getNextLineAndSplitIntoTokens(std::istream& str);
+bool									parse(std::vector<std::string> &line);
+bool									isValidDate(std::string dateStr);
+std::vector<std::vector<std::string> >	parseDatabase(const char *argv);
+bool									isNumeric(std::string str);
+std::vector<std::vector<std::string> >	parseDatabase(char *argv);
 
 #endif

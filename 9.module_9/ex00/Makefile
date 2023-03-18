@@ -48,9 +48,9 @@ CURSIVE		= '\033[3m'
 all		:	$(NAME)
 
 $(NAME)	:	$(OBJS)
-			@echo $(CURSIVE)$(GRAY) "Object files created" $(NONE)
+			@echo $(CURSIVE)$(GRAY)"Object files created" $(NONE)
 			$(CC) $(FLAGS) $(OBJS) -o $(NAME)
-			@echo $(CURSIVE)$(GREEN) "$(NAME) executable compiled" $(NONE)
+			@echo $(CURSIVE)$(GREEN)"$(NAME) executable compiled" $(NONE)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.cpp $(HEADER)
 			mkdir -p $(OBJ_DIR)
@@ -58,11 +58,11 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.cpp $(HEADER)
 
 clean	:
 			@rm -f $(OBJS)
-			@echo $(YELLOW) "Cleaning object files." $(NONE)
+			@echo $(YELLOW)"Cleaning object files." $(NONE)
 
 fclean	:	clean
 			@rm -rf $(NAME) $(OBJ_DIR)
-			@echo $(BLUE) "Cleaning $(NAME) executable." $(NONE)
+			@echo $(BLUE)"Cleaning $(NAME) executable." $(NONE)
 
 re		:	fclean all
 
