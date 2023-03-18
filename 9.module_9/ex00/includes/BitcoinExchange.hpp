@@ -19,22 +19,8 @@ class BitcoinExchange
 		void  									setDatabase(char *src);
 		void  									setDatabase(const char *src);
 		std::vector<std::vector<std::string> >  getDatabase(void);
+		std::vector<std::vector<std::string> >  getRequest(void);
 		void									getValues(void);
-
-		class InvalidInputException : public std::exception
-		{
-			private:
-				std::string _src;
-			public:
-				InvalidInputException(void);
-				InvalidInputException(std::string &src) : _src(src) {}
-				~InvalidInputException(void) throw() {}
-				virtual const char *what() const throw()
-				{
-					std::string msg = "Error: bad input => ";
-					return (msg.append(_src).c_str());
-				}
-		};
 
 		class OpenFileException : public std::exception
 		{
@@ -51,10 +37,11 @@ class BitcoinExchange
 
 };
 
-std::vector<std::string>				getNextLineAndSplitIntoTokens(std::istream& str);
+std::vector<std::string>				getNextLineAndSplitIntoTokens(std::istream& str, const char separator);
 bool									parse(std::vector<std::string> &line);
 bool									isValidDate(std::string dateStr);
 std::vector<std::vector<std::string> >	parseDatabase(const char *argv);
+std::vector<std::vector<std::string> >	parseRequest(const char *argv);
 bool									isNumeric(std::string str);
 std::vector<std::vector<std::string> >	parseDatabase(char *argv);
 
