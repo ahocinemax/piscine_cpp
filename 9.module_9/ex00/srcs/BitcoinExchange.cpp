@@ -42,7 +42,7 @@ void BitcoinExchange::getValues(void)
 		{
 			if ((*it)[0] == (*it2)[0])
 			{
-				if ((*it)[1].empty())
+				if ((*it).size() < 2 || (*it2).size() < 2)
 					std::cerr << "Error: bad input => " << (*it)[0] << std::endl;
 				else if (atof((*it)[1].c_str()) > INT_MAX)
 					std::cerr << "Error: too large a number." << std::endl;
