@@ -44,5 +44,7 @@ std::vector<std::vector<std::string> >	parseDatabase(const char *argv);
 std::vector<std::vector<std::string> >	parseRequest(const char *argv);
 bool									isNumeric(std::string str);
 std::vector<std::vector<std::string> >	parseDatabase(char *argv);
+bool	isValid(std::vector<std::vector<std::string> >::iterator it, \
+std::vector<std::vector<std::string> >::iterator it2);
 
 #endif

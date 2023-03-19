@@ -36,30 +36,21 @@ void BitcoinExchange::getValues(void)
 	std::vector<std::vector<std::string> >::iterator it = _request.begin();
 	std::vector<std::vector<std::string> >::iterator it2= _database.begin();
 
-	while (it != _request.end() - 1)
+	while (++it != _request.end()) // Tant qu'il y a des requetes
 	{
-		while (it2 != _database.end() - 1)
+		if (!isValid(it, it2 + 1)) // Si la requete n'est pas valide, on ecrit l'erreur
+			continue; // On passe a la requete suivante
+		while (++it2 != _database.end()) // Tant qu'il y a des valeurs dans la base de donnees
 		{
-			if ((*it)[0] == (*it2)[0])
+			if ((*it)[0] == (*it2)[0]) // Si la date de la requete est egale a la date de la base de donnees
 			{
-				if ((*it).size() < 2 || (*it2).size() < 2)
-					std::cerr << "Error: bad input => " << (*it)[0] << std::endl;
-				else if (atof((*it)[1].c_str()) > INT_MAX)
-					std::cerr << "Error: too large a number." << std::endl;
-				else if (atof((*it)[1].c_str()) < 0)
-					std::cerr << "Error: Not a positive number." << std::endl;
-				else if (!isNumeric((*it)[1]) || !(*it)[1].length())
-					std::cerr << "Error: bad input => " << (*it)[0] << std::endl;
-				else
-				{
+				{ // On affiche la valeur
 					float value = atof((*it2)[1].c_str()) * atof((*it)[1].c_str());
 					std::cout << (*it)[0] << " => " << (*it)[1] << " = " << value << std::endl;
 				}
 			}
-			it2++;
 		}
-		it2 = _database.begin();
-		it++;
+		it2 = _database.begin(); // On remet le pointeur de la base de donnees au debut
 	}
 }
 
@@ -137,6 +128,8 @@ bool isNumeric(std::string str)
 	{
 		if (!isdigit(str[i]))
 		{
+			if (i == 0 && str[i] == '-')
+				continue;
 			if (str[i] != '.')
 				return (false);
 			else
@@ -149,5 +142,30 @@ bool isNumeric(std::string str)
 bool isValidDate(std::string dateStr)
 {
     struct tm tm;
-    return !(strptime(dateStr.c_str(), "%Y-%m-%d", &tm) == NULL); // Convertir la chaîne en structure tm
+    return (strptime(dateStr.c_str(), "%Y-%m-%d", &tm) != NULL); // Convertir la chaîne en structure tm
+}
+
+bool	isValid(std::vector<std::vector<std::string> >::iterator it, std::vector<std::vector<std::string> >::iterator it2)
+{
+	if (!isValidDate((*it)[0]) || !isValidDate((*it2)[0]) || (*it).size() != 2)
+	{
+		std::cerr << "Error: bad input => " << (*it)[0] << std::endl;
+		return (false);
+	}
+	if (!isNumeric((*it)[1]))
+	{
+		std::cerr << "Error: bad input => " << (*it)[0] << std::endl;
+		return (false);
+	}
+	if (atoi((*it)[1].c_str()) < 0)
+	{
+		std::cerr << "Error: Not a positive number." << std::endl;
+		return (false);
+	}
+	if (atoi((*it)[1].c_str()) > INT_MAX)
+	{
+		std::cerr << "Error: too large a number." << std::endl;
+		return (false);
+	}
+	return (true);
 }
