@@ -109,16 +109,14 @@ void		RPN::div()
     this->_stack.pop();
     int		n2 = this->_stack.top();
     this->_stack.pop();
-    if (n1 == 0)
+    if (n2 == 0)
         throw std::exception();
-    this->_stack.push(n2 / n1);
+    this->_stack.push(n1 / n2);
 }
 
 void		RPN::print()
 {
     if (this->_stack.empty())
-        throw std::exception();
-    if (this->_stack.top() < 0 || this->_stack.top() > 127)
         throw std::exception();
     std::cout << static_cast<char>(this->_stack.top()) << std::endl;
 }
@@ -126,14 +124,14 @@ void		RPN::print()
 void        RPN::calculate()
 {
     // Check if there is enough tokens and digits
-    if (this->_tokens.empty() || this->_stack.empty())
+    if (this->_stack.empty())
         throw std::exception();
     // Check for the right number of tokens according to the number of digits
     if (this->_tokens.size() != this->_stack.size() - 1)
         throw std::exception();
     while (!this->_tokens.empty())
     {
-        switch (this->_tokens.)
+        switch (this->_tokens.top())
         {
             case '+':
                 this->add();
@@ -152,7 +150,7 @@ void        RPN::calculate()
         }
         this->_tokens.pop();
     }
-    print();
+    std::cout << this->_stack.top() << std::endl;
 }
 
 void		RPN::_exit(int code)

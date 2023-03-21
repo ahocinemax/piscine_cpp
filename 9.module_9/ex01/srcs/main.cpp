@@ -7,31 +7,34 @@ int main(int argc, char **argv)
 		std::cout << "Usage: ./ex01 \"expression\"" << std::endl;
 		return 1;
 	}
+
 	RPN		rpn;
 	std::string	str(argv[1]);
-	std::string	token;
-	std::string	delimiters(" \t\v\r");
-	std::string	tokens("+-*/");
-	std::string	numbers("0123456789");
 
+	// Remove all spaces
 	size_t		pos = 0;
-	while ((pos = str.find_first_of(delimiters)) != std::string::npos)
+	while ((pos = str.find_first_of(" \t\v\r")) != std::string::npos)
 		str.erase(pos, 1);
-	while (!str.empty())
+
+	// Parse the string
+	while (str.size())
 	{
-		pos = str.find_first_of(tokens);
+		pos = str.find_last_of("+-*/");
 		if (pos != std::string::npos)
 		{
 			rpn.push_tokens(str.substr(pos, 1));
 			str.erase(pos, 1);
 		}
-		pos = str.find_first_of(numbers);
+		pos = str.find_last_of("0123456789");
 		if (pos != std::string::npos)
 		{
 			rpn.push_digits(str.substr(pos, 1));
 			str.erase(pos, 1);
 		}
 	}
+
+	// Do the math
 	rpn.calculate();
-	return 0;
+
+	return (0);
 }

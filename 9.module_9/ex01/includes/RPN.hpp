@@ -1,5 +1,5 @@
-#ifndef RNP_HPP
-# define RNP_HPP
+#ifndef RPN_HPP
+# define RPN_HPP
 
 # include <iostream>
 # include <string>
@@ -7,15 +7,6 @@
 # include <sstream>
 # include <exception>
 # include <stdlib.h>
-
-enum e_tokens
-{
-	SUM,
-	SUB,
-	MUL,
-	DIV,
-};
-
 
 class RPN
 {
