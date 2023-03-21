@@ -3,16 +3,29 @@
 
 # include <iostream>
 
+#include <iostream>
+#include <set>
+#include <map>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
+#include <sstream>
+#include <string>
+
 class PmergeMe
 {
-    public:
-        PmergeMe(void);
-        PmergeMe(PmergeMe const & src);
-        ~PmergeMe(void);
+	public:
+		PmergeMe() {}
+		~PmergeMe() {}
 
-        PmergeMe &	operator=(PmergeMe const & rhs);
+		void add(int val);
+		void sort();
+		void print() const;
+		std::set<int> &getData();
 
-        void		mergeMe(void) const;
+	private:
+		std::set<int>		_set;
+		std::map<int, int>	_map;
 };
 
 #endif

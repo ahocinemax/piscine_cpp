@@ -5,7 +5,7 @@
 NAME		=	PmergeMe
 CC			=	c++
 INCLUDE		=	-I$(HEAD_DIR)
-FLAGS		=	-Wall -Wextra -Werror -std=c++98 -g3
+FLAGS		=	-Wall -Wextra -Werror -g3
 
 #------------------------------------#
 #               SOURCES              #
