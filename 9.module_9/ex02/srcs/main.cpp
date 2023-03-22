@@ -1,35 +1,42 @@
 #include "PmergeMe.hpp"
-// #include <chrono>
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
 
 int main(int argc, char** argv)
 {
-	PmergeMe list;
+    PmergeMe list;
+    clock_t start, end;
+    
+	std::cout << "Before: ";
+    start = clock();
+    if (argc < 2)
+    {
+        std::cout << "Usage: ./PmergeMe <set of numbers>" << std::endl;
+        return 1;
+    }
+    else if (argv++ && argc == 2)
+    {
+        if (list.parse(*argv) == false)
+            return (1);
+    }
+    else
+    {
+        if (list.parseList(argc, argv) == false)
+            return (1);
+    }
 
-	if (argc < 2)
-	{
-		std::cout << "Usage: ./PmergeMe <set of numbers>" << std::endl;
-		return 1;
-	}
-	else if (argc == 2 && !list.parse(argv[1]))
-		return (1);
-	else
-	{
-		for (int i = 1; i < argc; ++i)
-		{ // Commence à 1 pour ignorer le premier argument (nom du programme)
-			int val = std::atoi(argv[i]);
-			list.add(val);
-		}
-	}
+    list.print();
+    srand(time(NULL));
+    end = clock();
+    double elapsed = ((double) (end - start)) / CLOCKS_PER_SEC;
+    std::cout << "Time to process a range of " << list.size() << " with std::set: " << elapsed * 1000 << "ms" << std::endl;
 
-	srand(time(NULL));
+    start = clock();
+    PmergeMe lst(*argv);
+    end = clock();
+    elapsed = ((double) (end - start)) / CLOCKS_PER_SEC;
+    std::cout << "Time to process a range of " << list.size() << " with std::map: " << elapsed * 1000 << "ms" << std::endl;
 
-	// auto start = std::chrono::high_resolution_clock::now();
-	list.sort();
-	// auto end = std::chrono::high_resolution_clock::now();
-	// std::chrono::duration<double, std::milli> elapsed = end - start;
-
-	list.print();
-	// std::cout << "Elapsed time: " << elapsed.count() << "ms" << std::endl;
-
-	return 0;
+    return 0;
 }
