@@ -8,6 +8,7 @@
 #include <map>
 #include <vector>
 #include <cstdlib>
+#include <stdlib.h>
 #include <ctime>
 #include <sstream>
 #include <string>
@@ -18,10 +19,12 @@ class PmergeMe
 		PmergeMe() {}
 		~PmergeMe() {}
 
-		void add(int val);
-		void sort();
-		void print() const;
-		std::set<int> &getData();
+		void				print() const;
+		void				add(int val);
+		std::set<int>		&getData();
+		std::map<int, int>	&getMap();
+		void				sort();
+		bool				parse(std::string str);
 
 	private:
 		std::set<int>		_set;
