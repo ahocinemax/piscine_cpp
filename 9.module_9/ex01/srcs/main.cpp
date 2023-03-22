@@ -19,17 +19,20 @@ int main(int argc, char **argv)
 	// Parse the string
 	while (str.size())
 	{
-		pos = str.find_last_of("+-*/");
-		if (pos != std::string::npos)
+		if ((pos = str.find_last_of("+-*/")) != std::string::npos)
 		{
 			rpn.push_tokens(str.substr(pos, 1));
 			str.erase(pos, 1);
 		}
-		pos = str.find_last_of("0123456789");
-		if (pos != std::string::npos)
+		else if ((pos = str.find_last_of("0123456789")) != std::string::npos)
 		{
 			rpn.push_digits(str.substr(pos, 1));
 			str.erase(pos, 1);
+		}
+		else
+		{
+			std::cout << "Invalid expression" << std::endl;
+			return 1;
 		}
 	}
 
