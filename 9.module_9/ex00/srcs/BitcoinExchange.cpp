@@ -128,7 +128,7 @@ bool isNumeric(std::string str)
 	// Compte le nombre de chiffres en sautant les 0
 	while (str[realNumberSize] == '0')
 		realNumberSize++;
-	for (int i = 0 ; i < str.length() ; i++)
+	for (std::size_t i = 0 ; i < str.length() ; i++)
 	{
 		if (!isdigit(str[i]))
 		{
