@@ -20,8 +20,6 @@ class RPN
 		void		push_tokens(std::string const & str);
 		void		push_digits(std::string const & str);
 		void		pop();
-		void		dump();
-		void		assert(std::string const & str);
 		void		add();
 		void		sub();
 		void		mul();
@@ -29,7 +27,7 @@ class RPN
 		void		print();
 		void		calculate();
 		void		_exit(int code);
-		const std::stringstream &getSs() const { return (this->_ss); }
+		const std::stringstream	&getSs() const;
 
 	private:
 		std::stack<char>	_tokens;

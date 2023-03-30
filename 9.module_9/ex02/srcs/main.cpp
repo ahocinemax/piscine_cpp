@@ -5,8 +5,8 @@
 
 int main(int argc, char** argv)
 {
-    PmergeMe list;
-    clock_t start, end;
+    PmergeMe    list;
+    clock_t     start, end;
     
 	std::cout << "Before: ";
     start = clock();

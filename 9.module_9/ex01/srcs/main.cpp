@@ -41,3 +41,5 @@ int main(int argc, char **argv)
 
 	return (0);
 }
+
+const std::stringstream &RPN::getSs() const { return (this->_ss); }

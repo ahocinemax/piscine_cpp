@@ -7,14 +7,6 @@ PmergeMe::PmergeMe(const std::string& input)
 
 	// sort the map using merge sort
 	nums = merge_sort(nums);
-
-	// print the sorted map
-	// for (std::map<int, int>::iterator it = nums.begin(); it != nums.end(); ++it)
-	// {
-	// 	for (int i = 0; i < it->second; ++i)
-	// 		std::cout << it->first << " ";
-	// }
-	// std::cout << std::endl;
 }
 
 std::map<int, int> PmergeMe::merge(std::map<int, int>& left, std::map<int, int>& right)
@@ -125,7 +117,7 @@ bool	PmergeMe::parse(std::string str)
 	// Utilise l'espace comme délimiteur
 	while (std::getline(ss, token, ' '))
 	{
-		 // On ignore les espaces (ex: "  1  2 3" => "1" "2" "3")
+		// On ignore les espaces (ex: "  1  2 3" => "1" "2" "3")
 		if (token == "" || token == " ")
 			continue;
 		// On vérifie que chaque caractère est un chiffre
@@ -147,3 +139,7 @@ bool	PmergeMe::parse(std::string str)
 }
 
 std::set<int> &PmergeMe::getData()  { return _set; }
+
+size_t PmergeMe::size() const { return _set.size(); }
+
+std::map<int, int>	&PmergeMe::getMap() { return _map; }

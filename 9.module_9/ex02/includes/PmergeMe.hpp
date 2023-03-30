@@ -19,11 +19,11 @@ class PmergeMe
 		PmergeMe(const std::string& input);
 		~PmergeMe() {}
 
-		size_t				size() const { return _set.size(); };
+		size_t				size() const;
 		void				print() const;
 		void				add(int val);
 		std::set<int>		&getData();
-		std::map<int, int>	&getMap() { return _map; }
+		std::map<int, int>	&getMap();
 		void				sort();
 		bool				parse(std::string str);
 		bool				parseList(int argc, char **argv);

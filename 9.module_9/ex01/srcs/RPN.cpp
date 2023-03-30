@@ -48,26 +48,6 @@ void	RPN::pop()
 	this->_stack.pop();
 }
 
-void	RPN::dump()
-{
-	std::stack<int>		tmp = this->_stack;
-	while (!tmp.empty())
-	{
-		std::cout << tmp.top() << std::endl;
-		tmp.pop();
-	}
-}
-
-void	RPN::assert(std::string const & str)
-{
-	this->_ss << str;
-	int		n;
-	this->_ss >> n;
-	if (this->_stack.top() != n)
-		throw std::exception();
-	this->_ss.clear();
-}
-
 void	RPN::add()
 {
 	if (this->_stack.size() < 2)
@@ -87,7 +67,7 @@ void	RPN::sub()
 	this->_stack.pop();
 	int		n2 = this->_stack.top();
 	this->_stack.pop();
-	this->_stack.push(n2 - n1);
+	this->_stack.push(n1 - n2);
 }
 
 void	RPN::mul()
@@ -153,7 +133,4 @@ void	RPN::calculate()
 	std::cout << this->_stack.top() << std::endl;
 }
 
-void	RPN::_exit(int code)
-{
-	exit(code);
-}
+void	RPN::_exit(int code) { exit(code); }

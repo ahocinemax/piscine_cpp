@@ -33,24 +33,24 @@ std::vector<std::vector<std::string> > BitcoinExchange::getRequest(void)
 
 void BitcoinExchange::getValues(void)
 {
-	std::vector<std::vector<std::string> >::iterator it = _request.begin();
-	std::vector<std::vector<std::string> >::iterator it2= _database.begin();
+	std::vector<std::vector<std::string> >::iterator reqIt = _request.begin();
+	std::vector<std::vector<std::string> >::iterator dbIt= _database.begin();
 
-	while (++it != _request.end()) // Tant qu'il y a des requetes
+	while (++reqIt != _request.end()) // Tant qu'il y a des requetes
 	{
-		if (!isValid(it, it2 + 1)) // Si la requete n'est pas valide, on ecrit l'erreur
+		if (!isValid(reqIt, dbIt + 1)) // Si la requete n'est pas valide, on ecrit l'erreur
 			continue; // On passe a la requete suivante
-		while (++it2 != _database.end()) // Tant qu'il y a des valeurs dans la base de donnees
+		while (++dbIt != _database.end()) // Tant qu'il y a des valeurs dans la base de donnees
 		{
-			if ((*it)[0] == (*it2)[0]) // Si la date de la requete est egale a la date de la base de donnees
+			if ((*reqIt)[0] == (*dbIt)[0]) // Si la date de la requete est egale a la date de la base de donnees
 			{
 				{ // On affiche la valeur
-					float value = atof((*it2)[1].c_str()) * atof((*it)[1].c_str());
-					std::cout << (*it)[0] << " => " << (*it)[1] << " = " << value << std::endl;
+					float value = atof((*dbIt)[1].c_str()) * atof((*reqIt)[1].c_str());
+					std::cout << (*reqIt)[0] << " => " << (*reqIt)[1] << " = " << value << std::endl;
 				}
 			}
 		}
-		it2 = _database.begin(); // On remet le pointeur de la base de donnees au debut
+		dbIt = _database.begin(); // On remet le pointeur de la base de donnees au debut
 	}
 }
 
@@ -122,21 +122,26 @@ std::vector<std::vector<std::string> > parseDatabase(const char *argv)
 
 bool isNumeric(std::string str)
 {
-	int	point = 0;
+	std::size_t	realNumberSize = 0;
+	int			pointCounter = 0;
 
-	for (std::size_t i = 0; i < str.length(); i++)
+	// Compte le nombre de chiffres en sautant les 0
+	while (str[realNumberSize] == '0')
+		realNumberSize++;
+	for (int i = 0 ; i < str.length() ; i++)
 	{
 		if (!isdigit(str[i]))
 		{
-			if (i == 0 && str[i] == '-')
+			if (i == 0 && (str[i] == '+' || str[i] == '-'))
 				continue;
+			// Compte le nombre de points, ou quitte si ce n'en est pas un
 			if (str[i] != '.')
 				return (false);
 			else
-				point++;
+				pointCounter++;
 		}
 	}
-	return (point == 0 || point == 1);
+	return (pointCounter == 0 || pointCounter == 1);
 }
 
 bool isValidDate(std::string dateStr)
@@ -145,27 +150,32 @@ bool isValidDate(std::string dateStr)
     return (strptime(dateStr.c_str(), "%Y-%m-%d", &tm) != NULL); // Convertir la chaîne en structure tm
 }
 
-bool	isValid(std::vector<std::vector<std::string> >::iterator it, std::vector<std::vector<std::string> >::iterator it2)
+bool	isValid(std::vector<std::vector<std::string> >::iterator reqIt, std::vector<std::vector<std::string> >::iterator dbIt)
 {
-	if (!isValidDate((*it)[0]) || !isValidDate((*it2)[0]) || (*it).size() != 2)
+	if (!isValidDate((*reqIt)[0]) || !isValidDate((*dbIt)[0]) || (*reqIt).size() != 2)
 	{
-		std::cerr << "Error: bad input => " << (*it)[0] << std::endl;
+		std::cerr << "Error: bad input => " << (*reqIt)[0] << std::endl;
 		return (false);
 	}
-	if (!isNumeric((*it)[1]))
+	if (!isNumeric((*reqIt)[1]))
 	{
-		std::cerr << "Error: bad input => " << (*it)[0] << std::endl;
+		std::cerr << "Error: bad input => " << (*reqIt)[0] << std::endl;
 		return (false);
 	}
-	if (atoi((*it)[1].c_str()) < 0)
+	if (atoi((*reqIt)[1].c_str()) < 0)
 	{
 		std::cerr << "Error: Not a positive number." << std::endl;
 		return (false);
 	}
-	if (atoi((*it)[1].c_str()) > INT_MAX)
+	if (atoi((*reqIt)[1].c_str()) > 1000)
 	{
 		std::cerr << "Error: too large a number." << std::endl;
 		return (false);
 	}
 	return (true);
+}
+
+const char	*BitcoinExchange::OpenFileException::what(void) const throw()
+{
+	return "Error: Could not open file.";
 }

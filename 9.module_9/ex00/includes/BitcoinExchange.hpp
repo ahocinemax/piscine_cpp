@@ -25,10 +25,7 @@ class BitcoinExchange
 		class OpenFileException : public std::exception
 		{
 			public:
-				virtual const char *what() const throw()
-				{
-					return "Error: Could not open file.";
-				}
+				virtual const char *what() const throw();
 		};
 
 	private:
