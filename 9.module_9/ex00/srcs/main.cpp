@@ -3,7 +3,7 @@
 
 int main(int argc, char **argv)
 {
-	std::vector<std::vector<std::string> >  bitcoinDb;
+	std::map<std::string, std::string>  bitcoinDb;
 	if (argc != 2)
 	{
 		std::cout << "Usage: ./btc <data.csv>" << std::endl;

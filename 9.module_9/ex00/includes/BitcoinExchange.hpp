@@ -4,7 +4,7 @@
 # include <iostream>
 # include <fstream>
 # include <sstream>
-# include <vector>
+# include <map>
 # include <string>
 # include <stdlib.h>
 # include <limits.h>
@@ -18,8 +18,8 @@ class BitcoinExchange
 
 		void  									setDatabase(char *src);
 		void  									setDatabase(const char *src);
-		std::vector<std::vector<std::string> >  getDatabase(void);
-		std::vector<std::vector<std::string> >  getRequest(void);
+		std::map<std::string, std::string>  getDatabase(void);
+		std::map<std::string, std::string>  getRequest(void);
 		void									getValues(void);
 
 		class OpenFileException : public std::exception
@@ -29,19 +29,19 @@ class BitcoinExchange
 		};
 
 	private:
-		std::vector<std::vector<std::string> >  _database;
-		std::vector<std::vector<std::string> >  _request;
+		std::map<std::string, std::string>  _database;
+		std::map<std::string, std::string>  _request;
 
 };
 
-std::vector<std::string>				getNextLineAndSplitIntoTokens(std::istream& str, const char separator);
-bool									parse(std::vector<std::string> &line);
+std::pair<std::string, std::string>		getNextLineAndSplitIntoTokens(std::istream& str, const char separator);
+bool									parse(std::map<std::string, std::string> &line);
 bool									isValidDate(std::string dateStr);
-std::vector<std::vector<std::string> >	parseDatabase(const char *argv);
-std::vector<std::vector<std::string> >	parseRequest(const char *argv);
+std::map<std::string, std::string>		parseDatabase(const char *argv);
+std::map<std::string, std::string>		parseRequest(const char *argv);
 bool									isNumeric(std::string str);
-std::vector<std::vector<std::string> >	parseDatabase(char *argv);
-bool	isValid(std::vector<std::vector<std::string> >::iterator it, \
-std::vector<std::vector<std::string> >::iterator it2);
+std::map<std::string, std::string>		parseDatabase(char *argv);
+bool	isValid(std::map<std::string, std::string>::iterator it, \
+std::map<std::string, std::string>::iterator it2);
 
 #endif

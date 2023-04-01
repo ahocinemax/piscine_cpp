@@ -21,20 +21,20 @@ void BitcoinExchange::setDatabase(const char *src)
 	_request = parseDatabase(src);
 }
 
-std::vector<std::vector<std::string> > BitcoinExchange::getDatabase(void)
+std::map<std::string, std::string> BitcoinExchange::getDatabase(void)
 {
 	return (_database);
 }
 
-std::vector<std::vector<std::string> > BitcoinExchange::getRequest(void)
+std::map<std::string, std::string> BitcoinExchange::getRequest(void)
 {
 	return (_request);
 }
 
 void BitcoinExchange::getValues(void)
 {
-	std::vector<std::vector<std::string> >::iterator reqIt = _request.begin();
-	std::vector<std::vector<std::string> >::iterator dbIt= _database.begin();
+	std::map<std::string, std::string>::iterator reqIt = _request.begin();
+	std::map<std::string, std::string>::iterator dbIt= _database.begin();
 
 	while (++reqIt != _request.end()) // Tant qu'il y a des requetes
 	{
@@ -54,58 +54,54 @@ void BitcoinExchange::getValues(void)
 	}
 }
 
-std::vector<std::string> getNextLineAndSplitIntoTokens(std::istream& str, const char separator)
+std::pair<std::string, std::string> getNextLineAndSplitIntoTokens(std::istream& str, const char separator)
 {
-	std::vector<std::string>   result;
-	std::string                line;
+	// std::pair<std::string, std::string>	result;
+	std::string	line;
 	std::getline(str,line);
 
-	std::stringstream          lineStream(line);
-	std::string                cell;
+	std::stringstream	lineStream(line);
+	std::string			key;
+	std::string			val;
 
-	while(std::getline(lineStream,cell, separator))
-	{
-		result.push_back(cell);
-	}
+	std::getline(lineStream, key, separator);
+	std::getline(lineStream, val);
 
-	// This checks for a trailing comma with no data after it.
-	if (!lineStream && cell.empty())
-	{
-		// If there was a trailing comma then add an empty element.
-		result.push_back("");
-	}
+	std::pair<std::string, std::string>	result(key, val);
+
 	return (result);
 }
 
-bool parse(std::vector<std::string> &line)
+bool parse(std::map<std::string, std::string> &line)
 {
 	if (line.size() != 2)
 		return (false);
-	if (line[0].empty() || line[1].empty())
+	if (line.empty() || line[1].empty())
 		return (false);
 	return (true);
 }
 
-std::vector<std::vector<std::string> > parseRequest(const char *argv)
+std::map<std::string, std::string> parseRequest(const char *argv)
 {
-	std::vector<std::vector<std::string> >  vec;
-	std::vector<std::string>                line;
-	std::ifstream                           file(argv);
+	std::pair<std::string, std::string>	line;
+	std::map<std::string, std::string>	vec;
+	std::ifstream						file(argv);
+
 	if (!file.is_open())
 		throw BitcoinExchange::OpenFileException();
 	while (file.good())
 	{
 		// Read a line from File into a std::vector<std::string>
 		line = getNextLineAndSplitIntoTokens(file, '|');
-		// Add the above std::vector<std::string> to a std::vector<std::vector<std::string> >
+		// Add the above std::vector<std::string> to a std::map<std::string, std::string>
 		vec.push_back(line);
 	}
 	return (vec);
 }
 
-std::vector<std::vector<std::string> > parseDatabase(const char *argv)
+std::map<std::string, std::string> parseDatabase(const char *argv)
 {
-	std::vector<std::vector<std::string> >  vec;
+	std::map<std::string, std::string>  vec;
 	std::vector<std::string>                line;
 	std::ifstream                           file(argv);
 	if (!file.is_open())
@@ -114,7 +110,7 @@ std::vector<std::vector<std::string> > parseDatabase(const char *argv)
 	{
 		// Read a line from File into a std::vector<std::string>
 		line = getNextLineAndSplitIntoTokens(file, ',');
-		// Add the above std::vector<std::string> to a std::vector<std::vector<std::string> >
+		// Add the above std::vector<std::string> to a std::map<std::string, std::string>
 		vec.push_back(line);
 	}
 	return (vec);
@@ -146,11 +142,11 @@ bool isNumeric(std::string str)
 
 bool isValidDate(std::string dateStr)
 {
-    struct tm tm;
-    return (strptime(dateStr.c_str(), "%Y-%m-%d", &tm) != NULL); // Convertir la chaîne en structure tm
+	struct tm tm;
+	return (strptime(dateStr.c_str(), "%Y-%m-%d", &tm) != NULL); // Convertir la chaîne en structure tm
 }
 
-bool	isValid(std::vector<std::vector<std::string> >::iterator reqIt, std::vector<std::vector<std::string> >::iterator dbIt)
+bool	isValid(std::map<std::string, std::string>::iterator reqIt, std::map<std::string, std::string>::iterator dbIt)
 {
 	if (!isValidDate((*reqIt)[0]) || !isValidDate((*dbIt)[0]) || (*reqIt).size() != 2)
 	{
