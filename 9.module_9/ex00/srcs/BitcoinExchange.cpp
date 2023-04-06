@@ -4,12 +4,14 @@ BitcoinExchange::BitcoinExchange(const char *request)
 {
 	_request = parseRequest(request);
 	_database = parseDatabase("bitcoin.csv");
+
 	if (_database.empty())
 		throw OpenFileException();
-	if (_database[0][0].compare("date") != 0 || _database[0][1].compare("exchange_rate") != 0)
+	if (_database.find("date")->second.compare("exchange_rate") != 0)
 		throw OpenFileException();
-	if (_request[0][0].compare("date ") != 0 || _request[0][1].compare(" value") != 0)
+	if (_request.find("date ")->second.compare(" value") != 0)
 		throw OpenFileException();
+	_request.erase("date ");
 }
 
 BitcoinExchange::~BitcoinExchange() 
@@ -34,29 +36,24 @@ std::map<std::string, std::string> BitcoinExchange::getRequest(void)
 void BitcoinExchange::getValues(void)
 {
 	std::map<std::string, std::string>::iterator reqIt = _request.begin();
-	std::map<std::string, std::string>::iterator dbIt= _database.begin();
+	std::map<std::string, std::string>::iterator dbIt;
 
-	while (++reqIt != _request.end()) // Tant qu'il y a des requetes
+	std::cout << std::endl;
+	for ( ; reqIt != _request.end() ; reqIt++) // Tant qu'il y a des requetes
 	{
-		if (!isValid(reqIt, dbIt + 1)) // Si la requete n'est pas valide, on ecrit l'erreur
+		dbIt = _database.lower_bound((*reqIt).first); // On cherche la date de la requete dans la base de donnees
+		// std::cout << "traitement de : " << (*reqIt).first << " => " << (*reqIt).second << " * " << (*dbIt).second << std::endl;
+		if (!isValid(reqIt, dbIt)) // Si la requete n'est pas valide, on ecrit l'erreur
 			continue; // On passe a la requete suivante
-		while (++dbIt != _database.end()) // Tant qu'il y a des valeurs dans la base de donnees
-		{
-			if ((*reqIt)[0] == (*dbIt)[0]) // Si la date de la requete est egale a la date de la base de donnees
-			{
-				{ // On affiche la valeur
-					float value = atof((*dbIt)[1].c_str()) * atof((*reqIt)[1].c_str());
-					std::cout << (*reqIt)[0] << " => " << (*reqIt)[1] << " = " << value << std::endl;
-				}
-			}
-		}
-		dbIt = _database.begin(); // On remet le pointeur de la base de donnees au debut
+
+		float value = atof((*dbIt).second.c_str()) * atof((*reqIt).second.c_str());
+		std::cout << (*reqIt).first << " => " << (*reqIt).second << " = " << value << std::endl;
 	}
+	std::cout << std::endl;
 }
 
 std::pair<std::string, std::string> getNextLineAndSplitIntoTokens(std::istream& str, const char separator)
 {
-	// std::pair<std::string, std::string>	result;
 	std::string	line;
 	std::getline(str,line);
 
@@ -76,7 +73,7 @@ bool parse(std::map<std::string, std::string> &line)
 {
 	if (line.size() != 2)
 		return (false);
-	if (line.empty() || line[1].empty())
+	if (line.empty() || (line.begin())->second.empty())
 		return (false);
 	return (true);
 }
@@ -94,16 +91,16 @@ std::map<std::string, std::string> parseRequest(const char *argv)
 		// Read a line from File into a std::vector<std::string>
 		line = getNextLineAndSplitIntoTokens(file, '|');
 		// Add the above std::vector<std::string> to a std::map<std::string, std::string>
-		vec.push_back(line);
+		vec.insert(line);
 	}
 	return (vec);
 }
 
 std::map<std::string, std::string> parseDatabase(const char *argv)
 {
-	std::map<std::string, std::string>  vec;
-	std::vector<std::string>                line;
-	std::ifstream                           file(argv);
+	std::map<std::string, std::string>	vec;
+	std::pair<std::string, std::string>	line;
+	std::ifstream						file(argv);
 	if (!file.is_open())
 		throw BitcoinExchange::OpenFileException();
 	while (file.good())
@@ -111,7 +108,8 @@ std::map<std::string, std::string> parseDatabase(const char *argv)
 		// Read a line from File into a std::vector<std::string>
 		line = getNextLineAndSplitIntoTokens(file, ',');
 		// Add the above std::vector<std::string> to a std::map<std::string, std::string>
-		vec.push_back(line);
+		if (line.first.c_str())
+			vec.insert(line);
 	}
 	return (vec);
 }
@@ -148,22 +146,22 @@ bool isValidDate(std::string dateStr)
 
 bool	isValid(std::map<std::string, std::string>::iterator reqIt, std::map<std::string, std::string>::iterator dbIt)
 {
-	if (!isValidDate((*reqIt)[0]) || !isValidDate((*dbIt)[0]) || (*reqIt).size() != 2)
+	if (!isValidDate((*reqIt).first) || !isValidDate((*dbIt).first) || (*reqIt).second.empty())
 	{
-		std::cerr << "Error: bad input => " << (*reqIt)[0] << std::endl;
+		std::cerr << "Error: bad input => " << (*reqIt).first << std::endl;
 		return (false);
 	}
-	if (!isNumeric((*reqIt)[1]))
+	if (!isNumeric((*reqIt).second))
 	{
-		std::cerr << "Error: bad input => " << (*reqIt)[0] << std::endl;
+		std::cerr << "Error: bad input => " << (*reqIt).first << std::endl;
 		return (false);
 	}
-	if (atoi((*reqIt)[1].c_str()) < 0)
+	if (atoi((*reqIt).second.c_str()) < 0)
 	{
 		std::cerr << "Error: Not a positive number." << std::endl;
 		return (false);
 	}
-	if (atoi((*reqIt)[1].c_str()) > 1000)
+	if (atoi((*reqIt).second.c_str()) > 1000)
 	{
 		std::cerr << "Error: too large a number." << std::endl;
 		return (false);

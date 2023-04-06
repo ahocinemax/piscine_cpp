@@ -16,10 +16,10 @@ class BitcoinExchange
 		BitcoinExchange(const char *request);
 		~BitcoinExchange(void);
 
-		void  									setDatabase(char *src);
-		void  									setDatabase(const char *src);
-		std::map<std::string, std::string>  getDatabase(void);
-		std::map<std::string, std::string>  getRequest(void);
+		void									setDatabase(char *src);
+		void									setDatabase(const char *src);
+		std::map<std::string, std::string>		getDatabase(void);
+		std::map<std::string, std::string>		getRequest(void);
 		void									getValues(void);
 
 		class OpenFileException : public std::exception
@@ -29,8 +29,8 @@ class BitcoinExchange
 		};
 
 	private:
-		std::map<std::string, std::string>  _database;
-		std::map<std::string, std::string>  _request;
+		std::map<std::string, std::string>		_database;
+		std::map<std::string, std::string>		_request;
 
 };
 
