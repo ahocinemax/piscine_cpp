@@ -1,112 +1,46 @@
 #include "PmergeMe.hpp"
 
-PmergeMe::PmergeMe(const std::string& input)
+PmergeMe::PmergeMe(void)
 {
-	// convert input string to map of integers
-	std::map<int, int>	nums = parse_input(input);
-
-	// sort the map using merge sort
-	nums = merge_sort(nums);
 }
 
-std::map<int, int> PmergeMe::merge(std::map<int, int>& left, std::map<int, int>& right)
+PmergeMe::~PmergeMe(void)
 {
-	std::map<int, int> merged;
-
-	std::map<int, int>::iterator it_left = left.begin();
-	std::map<int, int>::iterator it_right = right.begin();
-
-	while (it_left != left.end() && it_right != right.end())
-	{
-		if (it_left->first <= it_right->first)
-		{
-			merged[it_left->first] += it_left->second;
-			++it_left;
-		}
-		else
-		{
-			merged[it_right->first] += it_right->second;
-			++it_right;
-		}
-	}
-
-	for (; it_left != left.end(); ++it_left)
-		merged[it_left->first] += it_left->second;
-	for (; it_right != right.end(); ++it_right)
-		merged[it_right->first] += it_right->second;
-
-	return (merged);
-}
-
-std::map<int, int> PmergeMe::merge_sort(std::map<int, int>& nums)
-{
-	if (nums.size() <= 1)
-		return nums;
-
-	std::map<int, int> left, right;
-	std::map<int, int>::iterator it = nums.begin();
-	int middle = nums.size() / 2;
-	for (int i = 0; i < middle; ++i)
-	{
-		left[it->first] = it->second;
-		++it;
-	}
-	for (; it != nums.end(); ++it)
-		right[it->first] = it->second;
-
-	left = merge_sort(left);
-	right = merge_sort(right);
-
-	return (merge(left, right));
-}
-
-std::map<int, int> PmergeMe::parse_input(const std::string& input)
-{
-	std::map<int, int>	nums;
-	std::stringstream	ss(input);
-	int					num;
-
-	while (ss >> num)
-		nums[num]++;
-	return (nums);
-}
-
-void	PmergeMe::add(int val)
-{
-	_set.insert(val);
-	std::cout << " " << val;
 }
 
 void	PmergeMe::print() const
 {
-	std::set<int>::const_iterator it;
-	std::cout << "After:   ";
-	for (it = _set.begin(); it != _set.end(); ++it)
-	{
+	std::vector<int>::const_iterator it;
+	std::cout << "After : ";
+	for (it = _vector.begin(); it != _vector.end(); ++it)
 		std::cout << *it << " ";
-	}
 	std::cout << std::endl;
 }
 
-bool	PmergeMe::parseList(int argc, char **argv)
+void	PmergeMe::sort_containers()
 {
-	for (int i = 0; i < argc - 1; ++i)
+	clock_t     start, end;
+
+	// Sorting the list container
 	{
-		int val = std::atoi(argv[i]);
-		if (val < 0)
-		{
-			std::cout << "Error: negative numbers are not allowed" << std::endl;
-			return (false);
-		}
-		else if (val == 0 && argv[i][0] != '0')
-		{
-			std::cout << "Error: invalid character in input" << std::endl;
-			return (false);
-		}
-		add(val);
+		srand(time(NULL));
+		start = clock();
+
+		_list = merge_sort(_list);
+
+		end = clock();
+		_elapsedList = ((double) (end - start)) / CLOCKS_PER_SEC;
 	}
-	std::cout << std::endl;
-	return (true);
+	// Sorting the vector container
+	{
+		srand(time(NULL));
+		start = clock();
+
+		_vector = merge_sort(_vector);
+
+		end = clock();
+		_elapsedVector = ((double) (end - start)) / CLOCKS_PER_SEC;
+	}
 }
 
 bool	PmergeMe::parse(std::string str)
@@ -132,14 +66,50 @@ bool	PmergeMe::parse(std::string str)
 			std::cout << "Error: negative numbers are not allowed" << std::endl;
 			return (false);
 		}
-		add(val);
+		getList().push_back(val);
+		getVector().push_back(val);
+	}
+	return (true);
+}
+
+bool	PmergeMe::parseList(int argc, char **argv)
+{
+	for (int i = 0; i < argc - 1; ++i)
+	{
+		int val = std::atoi(argv[i]);
+		if (val < 0)
+		{
+			std::cout << "Error: negative numbers are not allowed" << std::endl;
+			return (false);
+		}
+		else if (val == 0 && argv[i][0] != '0')
+		{
+			std::cout << "Error: invalid character in input" << std::endl;
+			return (false);
+		}
+		getList().push_back(val);
+		getVector().push_back(val);
+		std::cout << val << " ";
 	}
 	std::cout << std::endl;
 	return (true);
 }
 
-std::set<int> &PmergeMe::getData()  { return _set; }
+std::vector<int> &PmergeMe::getVector() { return _vector; }
 
-size_t PmergeMe::size() const { return _set.size(); }
+std::list<int>	&PmergeMe::getList() { return _list; }
 
-std::map<int, int>	&PmergeMe::getMap() { return _map; }
+double	PmergeMe::getElapsedVector() const { return _elapsedVector; }
+
+double	PmergeMe::getElapsedList() const { return _elapsedList; }
+
+std::list<int> PmergeMe::parse_input(const std::string& input)
+{
+	std::list<int>	nums;
+	std::stringstream	ss(input);
+	int					num;
+
+	while (ss >> num)
+		nums.push_back(num);
+	return (nums);
+}
