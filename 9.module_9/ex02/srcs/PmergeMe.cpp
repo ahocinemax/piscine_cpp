@@ -57,15 +57,15 @@ bool	PmergeMe::parse(std::string str)
 		if (token == "" || token == " ")
 			continue;
 		// On vérifie que chaque caractère est un chiffre
-		if (token.find_first_not_of("0123456789") != std::string::npos)
+		if (token.find_first_not_of("0123456789-") != std::string::npos)
 		{
-			std::cout << "Error: invalid character in input" << std::endl;
+			std::cout << "\nError: invalid character in input" << std::endl;
 			return (false);
 		}
 		int val = std::atoi(token.c_str());
 		if (val < 0)
 		{
-			std::cout << "Error: negative numbers are not allowed" << std::endl;
+			std::cout << "\nError: negative numbers are not allowed" << std::endl;
 			return (false);
 		}
 		getList().push_back(val);
@@ -81,12 +81,12 @@ bool	PmergeMe::parseList(int argc, char **argv)
 		int val = std::atoi(argv[i]);
 		if (val < 0)
 		{
-			std::cout << "Error: negative numbers are not allowed" << std::endl;
+			std::cout << "\nError: negative numbers are not allowed" << std::endl;
 			return (false);
 		}
 		else if (val == 0 && argv[i][0] != '0')
 		{
-			std::cout << "Error: invalid character in input" << std::endl;
+			std::cout << "\nError: invalid character in input" << std::endl;
 			return (false);
 		}
 		getList().push_back(val);
