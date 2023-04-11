@@ -11,10 +11,16 @@ PmergeMe::~PmergeMe(void)
 void	PmergeMe::print() const
 {
 	std::vector<int>::const_iterator it;
-	std::cout << "After : ";
+	std::cout << "After :  ";
 	for (it = _vector.begin(); it != _vector.end(); ++it)
 		std::cout << *it << " ";
 	std::cout << std::endl;
+
+	// std::list<int>::const_iterator it2;
+	// std::cout << "A.lst : ";
+	// for (it2 = _list.begin(); it2 != _list.end(); ++it2)
+	// 	std::cout << *it2 << " ";
+	// std::cout << std::endl;
 }
 
 void	PmergeMe::sort_containers()
@@ -25,21 +31,17 @@ void	PmergeMe::sort_containers()
 	{
 		srand(time(NULL));
 		start = clock();
-
-		_list = merge_sort(_list);
-
+		_list = mergeSort(_list);
 		end = clock();
-		_elapsedList = ((double) (end - start)) / CLOCKS_PER_SEC;
+		_timeList = ((double) (end - start)) / CLOCKS_PER_SEC;
 	}
 	// Sorting the vector container
 	{
 		srand(time(NULL));
 		start = clock();
-
-		_vector = merge_sort(_vector);
-
+		mergeSort(0, _vector.size() - 1);
 		end = clock();
-		_elapsedVector = ((double) (end - start)) / CLOCKS_PER_SEC;
+		_timeVector = ((double) (end - start)) / CLOCKS_PER_SEC;
 	}
 }
 
@@ -95,15 +97,16 @@ bool	PmergeMe::parseList(int argc, char **argv)
 	return (true);
 }
 
-std::vector<int> &PmergeMe::getVector() { return _vector; }
+std::vector<int>	&PmergeMe::getVector() { return _vector; }
 
 std::list<int>	&PmergeMe::getList() { return _list; }
 
-double	PmergeMe::getElapsedVector() const { return _elapsedVector; }
+double	PmergeMe::getTimeVector() const { return _timeVector; }
 
-double	PmergeMe::getElapsedList() const { return _elapsedList; }
+double	PmergeMe::getTimeList() const { return _timeList; }
 
-std::list<int> PmergeMe::parse_input(const std::string& input)
+// Ajoute les paramètres dans la liste
+std::list<int>	PmergeMe::parse_input(const std::string& input)
 {
 	std::list<int>	nums;
 	std::stringstream	ss(input);
@@ -112,4 +115,105 @@ std::list<int> PmergeMe::parse_input(const std::string& input)
 	while (ss >> num)
 		nums.push_back(num);
 	return (nums);
+}
+
+std::list<int> PmergeMe::merge(std::list<int>& left, std::list<int>& right)
+{
+	std::list<int> result;
+	while (left.size() > 0 || right.size() > 0)
+	{
+		if (left.size() > 0 && right.size() > 0)
+		{
+			if (left.front() <= right.front())
+			{
+				result.push_back(left.front());
+				left.pop_front();
+			}
+			else
+			{
+				result.push_back(right.front());
+				right.pop_front();
+			}
+		}
+		else if (left.size() > 0)
+		{
+			result.push_back(left.front());
+			left.pop_front();
+		}
+		else if (right.size() > 0)
+		{
+			result.push_back(right.front());
+			right.pop_front();
+		}
+	}
+	return (result);
+}
+
+std::list<int>	PmergeMe::mergeSort(std::list<int> &nums)
+{
+	if (nums.size() <= 1)
+		return (nums);
+	std::list<int> left;
+	std::list<int> right;
+	typename std::list<int>::iterator it = nums.begin();
+	typename std::list<int>::iterator ite = nums.end();
+	std::size_t i = 0;
+	while (it != ite)
+	{
+		if (i < nums.size() / 2)
+			left.push_back(*it);
+		else
+			right.push_back(*it);
+		++it;
+		++i;
+	}
+	left = mergeSort(left);
+	right = mergeSort(right);
+	return (merge(left, right));
+}
+
+// Fonction pour fusionner deux sous-vecteurs triés en un seul sous-vecteur trié
+void PmergeMe::merge(int left, int mid, int right)
+{
+	int i = left;
+	int j = mid + 1;
+	std::vector<int> temp;  // Vecteur temporaire pour stocker les éléments fusionnés
+
+	while (i <= mid && j <= right)
+	{
+		if (_vector[i] <= _vector[j])
+			temp.push_back(_vector[i++]);
+		else
+			temp.push_back(_vector[j++]);
+	}
+
+	// Ajout des éléments restants du premier sous-vecteur
+	while (i <= mid)
+		temp.push_back(_vector[i++]);
+
+	// Ajout des éléments restants du second sous-vecteur
+	while (j <= right)
+		temp.push_back(_vector[j++]);
+
+	// Copie des éléments fusionnés dans le vecteur original
+	for (int k = left; k <= right; k++)
+		_vector[k] = temp[k - left];
+}
+
+// Fonction de tri merge-insert récursive
+void PmergeMe::mergeSort(int left, int right)
+{
+	if (left < right) {
+		// Calcul du milieu pour diviser le vecteur en deux parties
+		int mid = (left + right) / 2;
+
+		// Appel récursif sur la première moitié
+		mergeSort(left, mid);
+
+		// Appel récursif sur la deuxième moitié
+		mergeSort(mid + 1, right);
+
+		// Fusion des deux moitiés triées
+		merge(left, mid, right);
+	}
 }

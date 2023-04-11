@@ -24,67 +24,24 @@ class PmergeMe
 
 		std::vector<int>	&getVector();
 		std::list<int>		&getList();
-		double				getElapsedVector() const;
-		double				getElapsedList() const;
+		double				getTimeVector() const;
+		double				getTimeList() const;
 
 	private:
 		std::list<int>		_list;
 		std::vector<int>	_vector;
-		double 				_elapsedVector;
-		double 				_elapsedList;
+		double 				_timeVector;
+		double 				_timeList;
 
-		std::list<int> parse_input(const std::string& input);
+		std::list<int>	parse_input(const std::string& input);
 
-		template <class T>
-		T merge_sort(T& nums)
-		{
-			if (nums.size() <= 1)
-				return (nums);
+		std::list<int>	merge(std::list<int> &left, std::list<int> &right);
 
-			T left;
-			T right;
-			typename T::iterator it = nums.begin();
+		std::list<int>	mergeSort(std::list<int> &nums);
 
-			for (size_t i = 0; i < nums.size() / 2; ++i)
-			{
-				left.push_back(*it);
-				++it;
-			}
-			for (size_t i = nums.size() / 2; i < nums.size(); ++i)
-			{
-				right.push_back(*it);
-				++it;
-			}
+		void			merge(int left, int mid, int right);
 
-			left = merge_sort(left);
-			right = merge_sort(right);
-
-			return (merge(left, right));
-		}
-
-		template <class T>
-		T merge(T& left, T& right)
-		{
-			T merged;
-
-			typename T::iterator it_left = left.begin();
-			typename T::iterator it_right = right.begin();
-
-			while (it_left != left.end() && it_right != right.end())
-			{
-				if (*it_left < *it_right)
-				{
-					merged.push_back(*it_left);
-					++it_left;
-				}
-				else
-				{
-					merged.push_back(*it_right);
-					++it_right;
-				}
-			}
-			return (merged);
-		}
+		void			mergeSort(int left, int right);
 };
 
 #endif
