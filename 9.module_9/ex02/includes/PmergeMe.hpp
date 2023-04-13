@@ -19,13 +19,31 @@ class PmergeMe
 		void				print() const;
 		void				sort_containers();
 
-		bool				parse(std::string str);
-		bool				parseList(int argc, char **argv);
+		void				parse(std::string str);
+		void				parseList(int argc, char **argv);
 
 		std::vector<int>	&getVector();
 		std::list<int>		&getList();
 		double				getTimeVector() const;
 		double				getTimeList() const;
+
+		class InvalidInputException : public std::exception
+		{
+			public:
+				virtual const char *what() const throw();
+		};
+
+		class NegativeNumberException : public std::exception
+		{
+			public:
+				virtual const char *what() const throw();
+		};
+
+		class OverflowException : public std::exception
+		{
+			public:
+				virtual const char *what() const throw();
+		};
 
 	private:
 		std::list<int>		_list;

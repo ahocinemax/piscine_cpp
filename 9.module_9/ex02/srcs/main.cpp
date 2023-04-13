@@ -4,7 +4,6 @@ int main(int argc, char** argv)
 {
 	PmergeMe	pmm;
 	
-	std::cout << "Before: ";
 	if (argc < 2)
 	{
 		std::cout << "Usage: ./PmergeMe <set of numbers>" << std::endl;
@@ -12,16 +11,38 @@ int main(int argc, char** argv)
 	}
 	else if (argv++ && argc == 2)
 	{
-		std::cout << *argv << std::endl;
-		if (pmm.parse(*argv) == false)
+		try
+		{
+			pmm.parse(*argv);
+		}
+		catch (std::exception &e)
+		{
+			std::cout << e.what() << std::endl;
 			return (1);
+		}
 	}
 	else
 	{
-		if (pmm.parseList(argc, argv) == false)
+		try
+		{
+			pmm.parseList(argc, argv);
+		}
+		catch (std::exception &e)
+		{
+			std::cout << e.what() << std::endl;
 			return (1);
+		}
 	}
 
+	std::cout << "Before: ";
+	std::list<int>::iterator	itBeg = pmm.getList().begin();
+	std::list<int>::iterator	itEnd = pmm.getList().end();
+	while (itBeg != itEnd)
+	{
+		std::cout << *itBeg << " ";
+		++itBeg;
+	}
+	std::cout << std::endl;
 	pmm.sort_containers();
 	pmm.print();
 	

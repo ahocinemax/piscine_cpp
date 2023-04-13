@@ -1,5 +1,7 @@
 #include "PmergeMe.hpp"
 
+// Public
+
 PmergeMe::PmergeMe(void)
 {
 }
@@ -11,7 +13,7 @@ PmergeMe::~PmergeMe(void)
 void	PmergeMe::print() const
 {
 	std::vector<int>::const_iterator it;
-	std::cout << "After :  ";
+	std::cout << "After : ";
 	for (it = _vector.begin(); it != _vector.end(); ++it)
 		std::cout << *it << " ";
 	std::cout << std::endl;
@@ -45,7 +47,7 @@ void	PmergeMe::sort_containers()
 	}
 }
 
-bool	PmergeMe::parse(std::string str)
+void	PmergeMe::parse(std::string str)
 {
 	std::stringstream ss(str); // Convertit la chaîne de caractères en un flux de lecture
 	std::string token;
@@ -57,44 +59,35 @@ bool	PmergeMe::parse(std::string str)
 		if (token == "" || token == " ")
 			continue;
 		// On vérifie que chaque caractère est un chiffre
-		if (token.find_first_not_of("0123456789-") != std::string::npos)
-		{
-			std::cout << "\nError: invalid character in input" << std::endl;
-			return (false);
-		}
+		if (token[0] == '-')
+			throw NegativeNumberException();
+		if (token.find_first_not_of("0123456789") != std::string::npos)
+			throw InvalidInputException();
+
 		int val = std::atoi(token.c_str());
-		if (val < 0)
-		{
-			std::cout << "\nError: negative numbers are not allowed" << std::endl;
-			return (false);
-		}
+		if (val <= 0 && token[0] != '0')
+			throw OverflowException();
 		getList().push_back(val);
 		getVector().push_back(val);
 	}
-	return (true);
 }
 
-bool	PmergeMe::parseList(int argc, char **argv)
+void	PmergeMe::parseList(int argc, char **argv)
 {
 	for (int i = 0; i < argc - 1; ++i)
 	{
+		std::string	str(argv[i]);
+		if (str[0] == '-')
+			throw NegativeNumberException();
+		else if (str.find_first_not_of("0123456789") != std::string::npos)
+			throw InvalidInputException();
+
 		int val = std::atoi(argv[i]);
-		if (val < 0)
-		{
-			std::cout << "\nError: negative numbers are not allowed" << std::endl;
-			return (false);
-		}
-		else if (val == 0 && argv[i][0] != '0')
-		{
-			std::cout << "\nError: invalid character in input" << std::endl;
-			return (false);
-		}
+		if (val <= 0 && str[0] != '0')
+			throw OverflowException();
 		getList().push_back(val);
 		getVector().push_back(val);
-		std::cout << val << " ";
 	}
-	std::cout << std::endl;
-	return (true);
 }
 
 std::vector<int>	&PmergeMe::getVector() { return _vector; }
@@ -104,6 +97,8 @@ std::list<int>	&PmergeMe::getList() { return _list; }
 double	PmergeMe::getTimeVector() const { return _timeVector; }
 
 double	PmergeMe::getTimeList() const { return _timeList; }
+
+// Private
 
 // Ajoute les paramètres dans la liste
 std::list<int>	PmergeMe::parse_input(const std::string& input)
@@ -217,3 +212,9 @@ void PmergeMe::mergeSort(int left, int right)
 		merge(left, mid, right);
 	}
 }
+
+const char *PmergeMe::InvalidInputException::what() const throw() { return "Error: invalid character in input"; }
+
+const char *PmergeMe::NegativeNumberException::what() const throw() { return "Error: negative numbers are not allowed"; }
+
+const char *PmergeMe::OverflowException::what() const throw() { return "Error: overflow detected"; }
