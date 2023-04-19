@@ -4,14 +4,20 @@ BitcoinExchange::BitcoinExchange(const char *request)
 {
 	_request = parseRequest(request);
 	_database = parseDatabase("bitcoin.csv");
+	std::string	req = request;
 
+	// Check for the extension of the file
+	if (req.size() <= 4 || req.substr(req.size() - 4, 4).compare(".csv") != 0)
+		throw WrongExtensionException();
 	if (_database.empty())
 		throw OpenFileException();
+	// Check for the header of files
 	if (_database.find("date")->second.compare("exchange_rate") != 0)
 		throw OpenFileException();
 	if (_request.find("date ")->second.compare(" value") != 0)
-		throw OpenFileException();
+		throw InvalidHeaderException();
 	_request.erase("date ");
+	_database.erase("date");
 }
 
 BitcoinExchange::~BitcoinExchange() 
@@ -38,18 +44,16 @@ void BitcoinExchange::getValues(void)
 	std::map<std::string, std::string>::iterator reqIt = _request.begin();
 	std::map<std::string, std::string>::iterator dbIt;
 
-	std::cout << std::endl;
 	for ( ; reqIt != _request.end() ; reqIt++) // Tant qu'il y a des requetes
 	{
 		dbIt = _database.lower_bound((*reqIt).first); // On cherche la date de la requete dans la base de donnees
-		// std::cout << "traitement de : " << (*reqIt).first << " => " << (*reqIt).second << " * " << (*dbIt).second << std::endl;
 		if (!isValid(reqIt, dbIt)) // Si la requete n'est pas valide, on ecrit l'erreur
 			continue; // On passe a la requete suivante
 
+		std::cout << "key: " << (*dbIt).first << "\nvalue: " << (*dbIt).second << std::endl;
 		float value = atof((*dbIt).second.c_str()) * atof((*reqIt).second.c_str());
-		std::cout << (*reqIt).first << " => " << (*reqIt).second << " = " << value << std::endl;
+		std::cout << (*dbIt).first << " => " << (*reqIt).second << " = " << value << std::endl;
 	}
-	std::cout << std::endl;
 }
 
 std::pair<std::string, std::string> getNextLineAndSplitIntoTokens(std::istream& str, const char separator)
@@ -116,19 +120,19 @@ std::map<std::string, std::string> parseDatabase(const char *argv)
 
 bool isNumeric(std::string str)
 {
-	std::size_t	realNumberSize = 0;
+	std::size_t	realNumberLen = 0;
 	int			pointCounter = 0;
 
-	// Compte le nombre de chiffres en sautant les 0
-	while (str[realNumberSize] == '0')
-		realNumberSize++;
+	// Count real len of number
+	while (str[realNumberLen] == '0')
+		realNumberLen++;
 	for (std::size_t i = 0 ; i < str.length() ; i++)
 	{
 		if (!isdigit(str[i]))
 		{
 			if (i == 0 && (str[i] == '+' || str[i] == '-'))
-				continue;
-			// Compte le nombre de points, ou quitte si ce n'en est pas un
+				continue ;
+			// Count points and leave if actual character it not
 			if (str[i] != '.')
 				return (false);
 			else
@@ -172,4 +176,14 @@ bool	isValid(std::map<std::string, std::string>::iterator reqIt, std::map<std::s
 const char	*BitcoinExchange::OpenFileException::what(void) const throw()
 {
 	return "Error: Could not open file.";
+}
+
+const char	*BitcoinExchange::InvalidHeaderException::what(void) const throw()
+{
+	return "Error: Invalid header \"date | value\"";
+}
+
+const char *BitcoinExchange::WrongExtensionException::what(void) const throw()
+{
+	return "Error: File must have \"NAME.csv\" extension";
 }

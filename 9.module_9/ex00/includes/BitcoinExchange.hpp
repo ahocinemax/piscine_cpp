@@ -28,6 +28,17 @@ class BitcoinExchange
 				virtual const char *what() const throw();
 		};
 
+		class InvalidHeaderException : public std::exception
+		{
+			public:
+				virtual const char *what() const throw();
+		};
+
+		class WrongExtensionException : public std::exception
+		{
+			public:
+				virtual const char *what() const throw();
+		};
 	private:
 		std::map<std::string, std::string>		_database;
 		std::map<std::string, std::string>		_request;
