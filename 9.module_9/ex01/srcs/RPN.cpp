@@ -1,17 +1,8 @@
 #include "RPN.hpp"
 
-RPN::RPN()
-{
-}
-
-RPN::RPN(RPN const & src)
-{
-	*this = src;
-}
-
-RPN::~RPN()
-{
-}
+RPN::RPN() {}
+RPN::RPN(RPN const & src) { *this = src; }
+RPN::~RPN() {}
 
 RPN & RPN::operator=(RPN const & rhs)
 {
