@@ -148,8 +148,10 @@ bool isValidDate(std::string dateStr)
 	return (strptime(dateStr.c_str(), "%Y-%m-%d", &tm) != NULL); // Convertir la chaîne en structure tm
 }
 
-bool	isValid(std::map<std::string, std::string>::iterator reqIt, std::map<std::string, std::string>::iterator dbIt)
+bool	BitcoinExchange::isValid(std::map<std::string, std::string>::iterator reqIt, std::map<std::string, std::string>::iterator dbIt)
 {
+	if (reqIt == _request.end() || dbIt == _database.end())
+		return (false);
 	if (!isValidDate((*reqIt).first) || !isValidDate((*dbIt).first) || (*reqIt).second.empty())
 	{
 		std::cerr << "Error: bad input => " << (*reqIt).first << std::endl;

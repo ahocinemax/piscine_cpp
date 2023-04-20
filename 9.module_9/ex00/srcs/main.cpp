@@ -12,6 +12,10 @@ int main(int argc, char **argv)
 	{
 		BitcoinExchange  ReqDb(*(++argv));
 		ReqDb.getValues();
+		// for (std::map<std::string, std::string>::iterator it = ReqDb.getRequest().begin(); it != ReqDb.getRequest().end(); it++)
+		// {
+		// 	std::cout << (*it).first << " -> " << (*it).second << std::endl;
+		// }
 	}
 	catch(const BitcoinExchange::OpenFileException &e)
 	{
@@ -26,14 +30,6 @@ int main(int argc, char **argv)
 		std::cerr << e.what() << std::endl;
 	}
 
-	// for (std::size_t i = 0; i < ReqDb.getRequest().size(); i++)
-	// {
-	// 	for (std::size_t j = 0; j < ReqDb.getRequest()[i].size(); j++)
-	// 	{
-	// 		std::cout << ReqDb.getRequest()[i][j] << " ";
-	// 	}
-	// 	std::cout << std::endl;
-	// }
 
 	return (0);
 }

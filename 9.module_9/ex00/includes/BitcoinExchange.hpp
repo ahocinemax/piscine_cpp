@@ -39,10 +39,13 @@ class BitcoinExchange
 			public:
 				virtual const char *what() const throw();
 		};
+
 	private:
 		std::map<std::string, std::string>		_database;
 		std::map<std::string, std::string>		_request;
 
+		bool	isValid(std::map<std::string, std::string>::iterator it, \
+		std::map<std::string, std::string>::iterator it2);
 };
 
 std::pair<std::string, std::string>		getNextLineAndSplitIntoTokens(std::istream& str, const char separator);
@@ -52,7 +55,5 @@ std::map<std::string, std::string>		parseDatabase(const char *argv);
 std::map<std::string, std::string>		parseRequest(const char *argv);
 bool									isNumeric(std::string str);
 std::map<std::string, std::string>		parseDatabase(char *argv);
-bool	isValid(std::map<std::string, std::string>::iterator it, \
-std::map<std::string, std::string>::iterator it2);
 
 #endif
