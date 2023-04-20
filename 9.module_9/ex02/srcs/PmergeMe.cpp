@@ -150,8 +150,8 @@ std::list<int>	PmergeMe::mergeSort(std::list<int> &nums)
 		return (nums);
 	std::list<int> left;
 	std::list<int> right;
-	typename std::list<int>::iterator it = nums.begin();
-	typename std::list<int>::iterator ite = nums.end();
+	std::list<int>::iterator it = nums.begin();
+	std::list<int>::iterator ite = nums.end();
 	std::size_t i = 0;
 	while (it != ite)
 	{
