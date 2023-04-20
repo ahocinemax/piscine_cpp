@@ -36,8 +36,15 @@ int main(int argc, char **argv)
 		}
 	}
 
-	// Do the math
-	rpn.calculate();
+	try
+	{
+		// Do the math
+		rpn.calculate();
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
 
 	return (0);
 }
