@@ -47,10 +47,11 @@ void BitcoinExchange::getValues(void)
 	for ( ; reqIt != _request.end() ; reqIt++) // Tant qu'il y a des requetes
 	{
 		dbIt = _database.lower_bound((*reqIt).first); // On cherche la date de la requete dans la base de donnees
+		if (dbIt == _database.end())
+			dbIt--;
 		if (!isValid(reqIt, dbIt)) // Si la requete n'est pas valide, on ecrit l'erreur
 			continue; // On passe a la requete suivante
 
-		std::cout << "key: " << (*dbIt).first << "\nvalue: " << (*dbIt).second << std::endl;
 		float value = atof((*dbIt).second.c_str()) * atof((*reqIt).second.c_str());
 		std::cout << (*dbIt).first << " => " << (*reqIt).second << " = " << value << std::endl;
 	}
@@ -120,12 +121,14 @@ std::map<std::string, std::string> parseDatabase(const char *argv)
 
 bool isNumeric(std::string str)
 {
-	std::size_t	realNumberLen = 0;
+	std::size_t	i = 0;
 	int			pointCounter = 0;
 
 	// Count real len of number
-	while (str[realNumberLen] == '0')
-		realNumberLen++;
+	while (str[i] == ' ')
+		i++;
+	while (str[i] == '0')
+		i++;
 	for (std::size_t i = 0 ; i < str.length() ; i++)
 	{
 		if (!isdigit(str[i]))
@@ -162,12 +165,12 @@ bool	BitcoinExchange::isValid(std::map<std::string, std::string>::iterator reqIt
 		std::cerr << "Error: bad input => " << (*reqIt).first << std::endl;
 		return (false);
 	}
-	if (atoi((*reqIt).second.c_str()) < 0)
+	if (atof((*reqIt).second.c_str()) < 0)
 	{
 		std::cerr << "Error: Not a positive number." << std::endl;
 		return (false);
 	}
-	if (atoi((*reqIt).second.c_str()) > 1000)
+	if (atof((*reqIt).second.c_str()) > 1000)
 	{
 		std::cerr << "Error: too large a number." << std::endl;
 		return (false);
