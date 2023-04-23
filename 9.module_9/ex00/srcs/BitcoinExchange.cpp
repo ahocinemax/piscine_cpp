@@ -47,7 +47,7 @@ void BitcoinExchange::getValues(void)
 	for ( ; reqIt != _request.end() ; reqIt++) // Tant qu'il y a des requetes
 	{
 		dbIt = _database.lower_bound((*reqIt).first); // On cherche la date de la requete dans la base de donnees
-		if (dbIt == _database.end())
+		if (dbIt->first != reqIt->first) // Si la date n'est pas excte, c'est qu'il faut prendre la date antérieure
 			dbIt--;
 		if (!isValid(reqIt, dbIt)) // Si la requete n'est pas valide, on ecrit l'erreur
 			continue; // On passe a la requete suivante
